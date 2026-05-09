@@ -57,6 +57,7 @@ const defaultTemplate: BasePreferenceStore = {
   },
 
   acceptLowFeeMode: false,
+  enableRBF: true,
 }
 
 export class PreferenceService extends EventEmitter<PreferenceServiceEvents> {
@@ -651,6 +652,17 @@ export class PreferenceService extends EventEmitter<PreferenceServiceEvents> {
 
   setAcceptLowFeeMode = (accept: boolean): void => {
     this.store.acceptLowFeeMode = accept
+  }
+
+  getEnableRBF = (): boolean => {
+    if (typeof this.store.enableRBF !== 'boolean') {
+      return true
+    }
+    return this.store.enableRBF
+  }
+
+  setEnableRBF = (enableRBF: boolean): void => {
+    this.store.enableRBF = enableRBF
   }
 
   /**

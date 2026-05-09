@@ -9,7 +9,8 @@ import {
   useNavigation,
   usePrepareSendBTCCallback,
   useSafeBalance,
-  useUtxos
+  useUtxos,
+  useWallet
 } from '@unisat/wallet-state';
 
 import { amountToSatoshis } from '@/ui/utils';
@@ -44,6 +45,18 @@ export const MergeBTCPopover = ({ onClose }: { onClose: () => void }) => {
 
   const { feeRate } = useFeeRateBar();
   const [enableRBF, setEnableRBF] = useState(true);
+  const wallet = useWallet();
+
+  useEffect(() => {
+    wallet.getEnableRBF().then(enableRBF => {
+      setEnableRBF(enableRBF);
+    });
+  }, [wallet]);
+
+  const onEnableRBFChange = (value: boolean) => {
+    setEnableRBF(value);
+    wallet.setEnableRBF(value);
+  };
 
   const chain = useChain();
   const nav = useNavigation();
@@ -83,7 +96,7 @@ export const MergeBTCPopover = ({ onClose }: { onClose: () => void }) => {
         </Column>
 
         <FeeRateBar />
-        <RBFBar value={enableRBF} onChange={setEnableRBF} />
+        <RBFBar value={enableRBF} onChange={onEnableRBFChange} />
 
         <Row full mt="lg">
           <Button

@@ -36,10 +36,21 @@ export function useSplitOrdinalsInscriptionScreenLogic() {
   const [splitedCount, setSplitedCount] = useState(0)
   const wallet = useWallet()
   useEffect(() => {
+    wallet.getEnableRBF().then(enableRBF => {
+      setEnableRBF(enableRBF)
+    })
+  }, [wallet])
+
+  useEffect(() => {
     wallet.getInscriptionUtxoDetail(props.inscription.inscriptionId).then(v => {
       setInscriptions(v.inscriptions)
     })
   }, [])
+
+  const onEnableRBFChange = (value: boolean) => {
+    setEnableRBF(value)
+    wallet.setEnableRBF(value)
+  }
 
   useEffect(() => {
     setDisabled(true)
@@ -88,7 +99,7 @@ export function useSplitOrdinalsInscriptionScreenLogic() {
     minOutputValue,
     splitedCount,
     enableRBF,
-    setEnableRBF,
+    setEnableRBF: onEnableRBFChange,
     error,
     disabled,
     onOutputValueChange,

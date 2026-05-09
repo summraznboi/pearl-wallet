@@ -707,6 +707,8 @@ export interface WalletController {
 
   getAcceptLowFeeMode(): Promise<boolean>
   setAcceptLowFeeMode(accept: boolean): Promise<void>
+  getEnableRBF(): Promise<boolean>
+  setEnableRBF(enableRBF: boolean): Promise<void>
 
   createTmpKeyringWithPublicKey(publicKey: string, addressType: AddressType): Promise<WalletKeyring>
 

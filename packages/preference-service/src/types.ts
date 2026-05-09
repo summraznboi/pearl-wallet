@@ -110,6 +110,7 @@ export interface BasePreferenceStore {
   rateUsStatus: RateUsStatus
 
   acceptLowFeeMode: boolean
+  enableRBF: boolean
 }
 
 export interface RateUsStatus {

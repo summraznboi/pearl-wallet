@@ -5,12 +5,14 @@ import { Button, Checkbox, Column, Content, Header, Icon, Input, Layout, Row, Te
 import BRC20Preview from '@/ui/components/BRC20Preview';
 import { BRC20Ticker } from '@/ui/components/BRC20Ticker';
 import { FeeRateBar } from '@/ui/components/FeeRateBar';
-import { RefreshButton } from '@/ui/components/RefreshButton';
 import { RBFBar } from '@/ui/components/RBFBar';
+import { RefreshButton } from '@/ui/components/RefreshButton';
 import { TabBar } from '@/ui/components/TabBar';
 import { TickUsdWithoutPrice, TokenType } from '@/ui/components/TickUsd';
 import { fontSizes } from '@/ui/theme/font';
 import { showLongNumber } from '@/ui/utils';
+import { getUiType } from '@/ui/web';
+import { TokenBalance } from '@unisat/wallet-shared';
 import {
   BRC20SendStepParams,
   BRC20SendTabKey,
@@ -20,11 +22,10 @@ import {
   useBRC20SendScreenLogicStep3,
   useI18n,
   useNavigation,
-  useTransferableListLogic
+  useTransferableListLogic,
+  useWallet
 } from '@unisat/wallet-state';
 
-import { getUiType } from '@/ui/web';
-import { TokenBalance } from '@unisat/wallet-shared';
 import { SignPsbt } from '../Approval/components';
 
 function Step1({ contextData, updateContextData }: BRC20SendStepParams) {
@@ -189,6 +190,7 @@ function TransferableList({ contextData, updateContextData }: BRC20SendStepParam
 
 function Step2({ contextData, updateContextData }: BRC20SendStepParams) {
   const { t, disabled, onStep2ClickNext } = useBRC20SendScreenLogicStep2({ contextData, updateContextData });
+  const wallet = useWallet();
   return (
     <Content mt="lg">
       <Column full>
@@ -230,6 +232,7 @@ function Step2({ contextData, updateContextData }: BRC20SendStepParams) {
             value={contextData.enableRBF}
             onChange={(val) => {
               updateContextData({ enableRBF: val });
+              wallet.setEnableRBF(val);
             }}
           />
         </Column>

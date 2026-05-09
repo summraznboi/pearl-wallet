@@ -12,6 +12,7 @@ import {
   useNavigation,
   usePrepareSendBTCCallback,
   useTools,
+  useWallet,
   useUiTxCreateScreen,
   useUpdateUiTxCreateScreen,
   useWalletConfig,
@@ -39,6 +40,7 @@ export function useTxCreateScreenLogic() {
 
   const [autoAdjust, setAutoAdjust] = useState(false)
   const fetchUtxos = useFetchUtxosCallback()
+  const wallet = useWallet()
 
   const tools = useTools()
   useEffect(() => {
@@ -47,6 +49,12 @@ export function useTxCreateScreenLogic() {
       tools.showLoading(false)
     })
   }, [])
+
+  useEffect(() => {
+    wallet.getEnableRBF().then(enableRBF => {
+      setUiState({ enableRBF })
+    })
+  }, [wallet, setUiState])
 
   const prepareSendBTC = usePrepareSendBTCCallback()
 
@@ -121,6 +129,7 @@ export function useTxCreateScreenLogic() {
 
   const onRBFChange = (value: boolean) => {
     setUiState({ enableRBF: value })
+    wallet.setEnableRBF(value)
   }
 
   const onClickNext = () => {

@@ -44,10 +44,21 @@ export function useSendOrdinalsInscriptionScreenLogic() {
 
   const wallet = useWallet()
   useEffect(() => {
+    wallet.getEnableRBF().then(enableRBF => {
+      setEnableRBF(enableRBF)
+    })
+  }, [wallet])
+
+  useEffect(() => {
     wallet.getInscriptionUtxoDetail(inscription.inscriptionId).then(v => {
       setInscriptions(v.inscriptions)
     })
   }, [])
+
+  const onEnableRBFChange = (value: boolean) => {
+    setEnableRBF(value)
+    wallet.setEnableRBF(value)
+  }
 
   const minOutputValue = useMemo(() => {
     if (toInfo.address) {
@@ -128,7 +139,7 @@ export function useSendOrdinalsInscriptionScreenLogic() {
     toInfo,
     outputValue,
     enableRBF,
-    setEnableRBF,
+    setEnableRBF: onEnableRBFChange,
     minOutputValue,
     defaultOutputValue,
     setOutputValue,

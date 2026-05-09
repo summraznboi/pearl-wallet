@@ -3466,6 +3466,14 @@ export class WalletController extends BaseController {
     preferenceService.setAcceptLowFeeMode(accept)
   }
 
+  getEnableRBF = async () => {
+    return preferenceService.getEnableRBF()
+  }
+
+  setEnableRBF = async (enableRBF: boolean) => {
+    preferenceService.setEnableRBF(enableRBF)
+  }
+
   createTmpKeyringWithPublicKey = async (publicKey: string, addressType: AddressType) => {
     const originKeyring = keyringService.createTmpKeyring(KeyringType.ReadonlyKeyring, [publicKey])
     const displayedKeyring = await keyringService.displayForKeyring(originKeyring, addressType, -1)

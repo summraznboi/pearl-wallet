@@ -54,6 +54,7 @@ export interface BRC20SendStepParams {
 
 export function useBRC20SendScreenLogic() {
   const nav = useNavigation()
+  const wallet = useWallet()
 
   const props = nav.getRouteState<'BRC20SendScreen'>()
 
@@ -113,6 +114,12 @@ export function useBRC20SendScreenLogic() {
   }
 
   const { t } = useI18n()
+
+  useEffect(() => {
+    wallet.getEnableRBF().then(enableRBF => {
+      updateContextData({ enableRBF })
+    })
+  }, [wallet, updateContextData])
 
   return {
     t,
