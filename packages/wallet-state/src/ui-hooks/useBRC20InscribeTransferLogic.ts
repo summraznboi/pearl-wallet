@@ -70,12 +70,9 @@ export function useBRC20InscribeTransferLogic() {
     isApproval: false,
     enableRBF: true,
   })
-  const updateContextData = useCallback(
-    (params: UpdateContextDataParams) => {
-      setContextData(Object.assign({}, contextData, params))
-    },
-    [contextData, setContextData]
-  )
+  const updateContextData = useCallback((params: UpdateContextDataParams) => {
+    setContextData(prev => Object.assign({}, prev, params))
+  }, [])
   return {
     contextData,
     updateContextData,
@@ -129,7 +126,7 @@ export function useBRC20InscribeTransferLogicStep1(params: BRC20InscribeTransfer
     wallet.getEnableRBF().then(enableRBF => {
       updateContextData({ enableRBF })
     })
-  }, [wallet, updateContextData])
+  }, [])
 
   useEffect(() => {
     setInputError('')
