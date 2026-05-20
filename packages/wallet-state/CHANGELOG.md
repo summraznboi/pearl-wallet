@@ -1,5 +1,11 @@
 # @unisat/wallet-state
 
+## 1.2.1
+
+### Minor Changes
+
+- fix: stabilize ui callbacks
+
 ## 1.2.0
 
 ### Minor Changes
