@@ -15,7 +15,7 @@ export function defineUnwritablePropertyIfPossible(o: any, p: string, value: any
       o[p] = value;
     }
   } else {
-    console.warn(`Failed to inject ${p} from unisat. Probably, other wallet is trying to intercept UniSat Wallet`);
+    console.warn(`Failed to inject ${p} from pearl. Probably another wallet is trying to intercept Pearl Wallet`);
   }
 }
 
@@ -30,7 +30,7 @@ export function createProviderProxy(provider: any, requestMethodKey: symbol): an
       // Block access to methods starting with underscore or Symbol methods
       if ((typeof prop === 'string' && prop.startsWith('_')) || prop === requestMethodKey) {
         console.warn(
-          `[UniSat] Attempted access to private method: ${String(prop)} is not allowed for security reasons`
+          `[Pearl] Attempted access to private method: ${String(prop)} is not allowed for security reasons`
         );
         return undefined;
       }
@@ -40,11 +40,7 @@ export function createProviderProxy(provider: any, requestMethodKey: symbol): an
 }
 
 export function injectProviderToWindow(provider: any): void {
-  defineUnwritablePropertyIfPossible(window, 'pearl', provider);
-  // Keep the legacy `unisat` namespace so existing Bitcoin dApps work unchanged.
-  defineUnwritablePropertyIfPossible(window, 'unisat', provider);
-  defineUnwritablePropertyIfPossible(window, 'unisat_wallet', provider);
+  defineUnwritablePropertyIfPossible(window, 'pearl_wallet', provider);
 
-  window.dispatchEvent(new Event('pearl#initialized'));
-  window.dispatchEvent(new Event('unisat#initialized'));
+  window.dispatchEvent(new Event('pearl_wallet#initialized'));
 }
