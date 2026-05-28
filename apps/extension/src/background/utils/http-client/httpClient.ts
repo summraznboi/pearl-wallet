@@ -251,6 +251,13 @@ export class HttpClient implements BaseHttpClient {
   }
 
   /**
+   * Get the configured base URL.
+   */
+  getBaseURL(): string {
+    return this.baseURL;
+  }
+
+  /**
    * Update default headers
    */
   setHeaders(headers: Record<string, string>): void {

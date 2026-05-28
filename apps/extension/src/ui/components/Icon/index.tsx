@@ -23,6 +23,7 @@ export const svgRegistry = {
   compass: '/images/icons/tab/compass-solid.svg',
   settings: '/images/icons/tab/settings.svg',
   grid: '/images/icons/tab/grid.svg',
+  pearl: '/images/icons/tab/pearl.svg',
 
   // action
   send: '/images/icons/action/send.svg',

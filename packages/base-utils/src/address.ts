@@ -38,22 +38,22 @@ export function isAddressLikelyValid(address: string): boolean {
 
   const lower = address.toLowerCase()
 
-  // ---- Witness v0 (bc1q / tb1q): P2WPKH (42)  ----
-  if (lower.startsWith('bc1q') || lower.startsWith('tb1q')) {
-    // P2WPKH: 42 char
-    if (lower.length < 42 || lower.length > 63) return false
-    return BECH32_REGEX.test(lower.slice(4))
+  // ---- Witness v0 (bc1q / tb1q / prl1q): P2WPKH (42)  ----
+  if (lower.startsWith('bc1q') || lower.startsWith('tb1q') || lower.startsWith('prl1q')) {
+    // P2WPKH: 42 char (43 for prl1q since prefix is one char longer)
+    const min = lower.startsWith('prl1q') ? 43 : 42
+    if (lower.length < min || lower.length > 64) return false
+    const skip = lower.startsWith('prl1q') ? 5 : 4
+    return BECH32_REGEX.test(lower.slice(skip))
   }
 
-  // ---- Witness v1 (bc1p / tb1p): P2TR (Taproot) ----
-  if (lower.startsWith('bc1p') || lower.startsWith('tb1p')) {
-    // P2TR uses bech32m, always 62 chars
-    if (lower.length == 62) {
-      // valid lengths
-    } else {
-      return false
-    }
-    return BECH32_REGEX.test(lower.slice(4))
+  // ---- Witness v1 (bc1p / tb1p / prl1p): P2TR (Taproot) ----
+  if (lower.startsWith('bc1p') || lower.startsWith('tb1p') || lower.startsWith('prl1p')) {
+    const isPearl = lower.startsWith('prl1p')
+    // P2TR uses bech32m: 62 chars on bc1p/tb1p; 63 on prl1p (prefix is one char longer).
+    const expected = isPearl ? 63 : 62
+    if (lower.length !== expected) return false
+    return BECH32_REGEX.test(lower.slice(isPearl ? 5 : 4))
   }
 
   return false

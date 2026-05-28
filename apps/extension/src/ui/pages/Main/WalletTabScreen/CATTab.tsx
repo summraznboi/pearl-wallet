@@ -63,7 +63,7 @@ function TabDropdown({ tab, isExpanded, selectedKey, onToggle, onSelect }: TabDr
           />
           <Row
             px="md"
-            style={{ backgroundImage: 'linear-gradient(103.92deg, #EBB94C 0%, #E97E00 100%)', borderRadius: 10 }}>
+            style={{ backgroundImage: 'linear-gradient(103.92deg, #F4F1EA 0%, #A89B7E 100%)', borderRadius: 10 }}>
             <Text text={activeSubVersion} size="xs" />
           </Row>
 

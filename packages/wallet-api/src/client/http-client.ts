@@ -31,6 +31,7 @@ export interface BaseHttpClient {
   post<T = any>(url: string, body?: any, options?: RequestOptions): Promise<T>
 
   setBaseURL(baseURL: string): void
+  getBaseURL(): string
   setHeaders(headers: Record<string, string>): void
 }
 
@@ -247,6 +248,13 @@ export class HttpClient implements BaseHttpClient {
    */
   setBaseURL(baseURL: string): void {
     ;(this as any).baseURL = baseURL
+  }
+
+  /**
+   * Get the configured base URL.
+   */
+  getBaseURL(): string {
+    return this.baseURL
   }
 
   /**

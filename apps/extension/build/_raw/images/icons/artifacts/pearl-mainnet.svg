@@ -1,0 +1,37 @@
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="pearl_body" cx="0.38" cy="0.30" r="0.85">
+      <stop offset="0%"  stop-color="#FFFFFF"/>
+      <stop offset="35%" stop-color="#F4F1EA"/>
+      <stop offset="75%" stop-color="#DDD6C6"/>
+      <stop offset="100%" stop-color="#B8AE99"/>
+    </radialGradient>
+    <radialGradient id="pearl_hi" cx="0.32" cy="0.22" r="0.30">
+      <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="pearl_lo" cx="0.72" cy="0.78" r="0.55">
+      <stop offset="0%"  stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.18"/>
+    </radialGradient>
+    <linearGradient id="pearl_rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.0"/>
+      <stop offset="60%" stop-color="#000000" stop-opacity="0.0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Coin disc -->
+  <circle cx="18" cy="18" r="17.4" fill="url(#pearl_body)"/>
+  <circle cx="18" cy="18" r="17.4" fill="url(#pearl_lo)"/>
+  <circle cx="18" cy="18" r="17.4" fill="url(#pearl_hi)"/>
+  <circle cx="18" cy="18" r="17.4" fill="url(#pearl_rim)"/>
+  <circle cx="18" cy="18" r="17.4" fill="none" stroke="#8C7E63" stroke-opacity="0.35" stroke-width="0.6"/>
+
+  <!-- Pearl wordmark "P" — path data from pearlresearch.ai/pearl.svg,
+       translated and scaled to fit centered in the 36x36 coin. -->
+  <g transform="translate(18 18) scale(0.072) translate(-175 -155)">
+    <path d="M242 280H127V262H166V30H225C286 30 321 68 321 113C321 158 286 188 233 192L219 181C265 173 281 151 281 113C281 76 261 48 220 48H205V262H242V280Z" fill="#1A1A1A"/>
+    <path d="M130 30L130 195L126 195C64 195 29 158 29 113C29 68 65 30 126 30L130 30Z" fill="#1A1A1A"/>
+  </g>
+</svg>

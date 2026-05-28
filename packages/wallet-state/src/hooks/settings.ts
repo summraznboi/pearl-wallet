@@ -1,7 +1,6 @@
 import compareVersions from 'compare-versions'
 import { useCallback } from 'react'
 
-import { BABYLON_CONFIG_MAP } from '@unisat/babylon-service/types'
 import { CAT_VERSION, CHAINS_MAP, PlatformEnv } from '@unisat/wallet-shared'
 import { AddressType, ChainType, NetworkType } from '@unisat/wallet-types'
 import { useWallet } from '../context/WalletContext'
@@ -290,8 +289,9 @@ export function useCAT721NFTContentBaseUrl(version: CAT_VERSION) {
 }
 
 export function useBabylonConfig() {
-  const chainType = useChainType()
-  return BABYLON_CONFIG_MAP[chainType] || BABYLON_CONFIG_MAP[ChainType.BITCOIN_MAINNET]
+  // Pearl wallet does not support Babylon staking — always return undefined so
+  // callers hide the Babylon UI entry points.
+  return undefined as any
 }
 
 export function useIsMainnetChain() {

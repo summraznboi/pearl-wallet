@@ -4,9 +4,9 @@ import { addressUtils } from '@unisat/base-utils';
 import { AddressType, NetworkType } from '@unisat/wallet-types';
 
 export function getAddressType(address: string, networkType?: NetworkType) {
-  if (address.startsWith('bc1q') || address.startsWith('tb1q')) {
+  if (address.startsWith('bc1q') || address.startsWith('tb1q') || address.startsWith('prl1q')) {
     return AddressType.P2WPKH;
-  } else if (address.startsWith('bc1p') || address.startsWith('tb1p')) {
+  } else if (address.startsWith('bc1p') || address.startsWith('tb1p') || address.startsWith('prl1p')) {
     return AddressType.P2TR;
   } else if (address.startsWith('1') || address.startsWith('m') || address.startsWith('n')) {
     return AddressType.P2PKH;

@@ -1,48 +1,51 @@
 /**
- * Configuration and utility API methods
+ * Configuration service — Pearl stub.
+ *
+ * Pearl Blockbook does not expose UniSat-style /v5/default/* endpoints,
+ * so all methods return static / empty defaults.
  */
 
-import type { BaseHttpClient, HttpClient } from '../client/http-client'
+import type { BaseHttpClient } from '../client/http-client'
 import type {
   WalletConfig,
-  AppInfo,
   AppSummary,
   VersionDetail,
   CoinPrice,
   TickPriceItem,
-  PaginationParams,
 } from '../types'
 
 export class ConfigService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
-
-  /**
-   * Get wallet configuration
-   */
-  async getWalletConfig(): Promise<WalletConfig> {
-    return this.httpClient.get('/v5/default/config')
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  /**
-   * Get application list
-   */
+  async getWalletConfig(): Promise<WalletConfig> {
+    return {
+      version: '',
+      endpoint: '',
+      endpoints: [],
+      chainType: 0 as any,
+      enabledFeatures: [],
+      feeRates: { slow: 1, standard: 2, fast: 5 },
+      limits: {
+        maxTransactionSize: 100000,
+        maxFeeRate: 1000,
+        minFeeRate: 1,
+        maxUtxos: 1000,
+      },
+    } as any as WalletConfig
+  }
+
   async getAppList(): Promise<{
     apps: AppSummary[]
     featured: AppSummary[]
-    categories: Array<{
-      id: string
-      name: string
-      apps: AppSummary[]
-    }>
+    categories: Array<{ id: string; name: string; apps: AppSummary[] }>
   }> {
-    return this.httpClient.get('/v5/default/app-list')
+    return { apps: [], featured: [], categories: [] }
   }
 
-  /**
-   * Get banner list
-   */
-  async getBannerList(): Promise<
-    Array<{
+  async getBannerList() {
+    return [] as Array<{
       id: string
       title: string
       description?: string
@@ -53,55 +56,30 @@ export class ConfigService {
       priority: number
       target: 'all' | 'mobile' | 'extension'
     }>
-  > {
-    return this.httpClient.get('/v5/default/banner-list')
   }
 
-  /**
-   * Get block activity information
-   */
-  async getBlockActiveInfo(): Promise<{
-    allTransactions: number
-    allAddrs: number
-    currentHeight: number
-    recentBlocks: Array<{
-      height: number
-      timestamp: number
-      txCount: number
-    }>
-  }> {
-    return this.httpClient.get('/v5/default/block-active-info')
+  async getBlockActiveInfo() {
+    return {
+      allTransactions: 0,
+      allAddrs: 0,
+      currentHeight: 0,
+      recentBlocks: [],
+    }
   }
 
-  /**
-   * Get version details
-   */
   async getVersionDetail(version: string): Promise<VersionDetail> {
-    return this.httpClient.get('/v5/version/detail', { query: { version } })
+    return { version, title: '', changelogs: [], notice: '' }
   }
 
-  /**
-   * Get Bitcoin price
-   */
   async getBitcoinPrice(): Promise<CoinPrice> {
-    return this.httpClient.get('/v5/market/bitcoin/price')
+    return { btc: 0, fb: 0 }
   }
 
-  /**
-   * Get tick prices
-   */
   async getTickPrices(ticks: string[]): Promise<TickPriceItem[]> {
-    return this.httpClient.post('/v5/market/tick-prices', { ticks })
+    return ticks.map(() => ({ curPrice: 0, changePercent: 0 }))
   }
 
-  // ========================================
-  // Babylon related
-  // ========================================
-
-  /**
-   * Get Babylon configuration
-   */
   async getBabylonConfig(): Promise<any> {
-    return this.httpClient.get('/v5/babylon/config')
+    return null
   }
 }

@@ -1,12 +1,12 @@
-import { BaseHttpClient, HttpClient } from '../client/http-client'
+import { BaseHttpClient } from '../client/http-client'
 
 export class DomainService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
+  }
 
-  /**
-   * Get domain information
-   */
-  async getDomainInfo(domain: string) {
-    return this.httpClient.get('/v5/address/search', { query: { domain } })
+  // Pearl does not support .sats / BTC name domain lookups.
+  async getDomainInfo(_domain: string) {
+    return null
   }
 }

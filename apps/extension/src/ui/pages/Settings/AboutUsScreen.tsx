@@ -58,7 +58,7 @@ export default function AboutUsScreen() {
 
           {/* App Name */}
           <Column itemsCenter>
-            <Text text="UniSat Wallet" preset="title-bold" size="xxl" />
+            <Text text="Pearl Wallet" preset="title-bold" size="xxl" />
           </Column>
 
           {/* Version Info */}
@@ -87,9 +87,9 @@ export default function AboutUsScreen() {
                   whiteSpace: 'nowrap',
                   gap: 0
                 }}
-                onClick={() => nav.navToUrl('https://unisat.io/extension/update')}>
+                onClick={() => nav.navToUrl('https://pearlresearch.ai')}>
                 <Icon icon="arrowUp" size={14} />
-                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#EBB94C' }} />
+                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#C7B98F' }} />
               </Row>
             ) : null}
           </Column>

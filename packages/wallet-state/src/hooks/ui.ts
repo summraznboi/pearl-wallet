@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from 'react'
 
-import { CHAINS_MAP, Inscription } from '@unisat/wallet-shared'
-import { AddressType, ChainType } from '@unisat/wallet-types'
-import { getAddressType } from '../utils/bitcoin-utils'
+import { Inscription } from '@unisat/wallet-shared'
+import { ChainType } from '@unisat/wallet-types'
 
 import { AppState, AssetTabKey } from '..'
 import { useCurrentAddress } from '../hooks/accounts'
@@ -191,12 +190,9 @@ export const useThrottle = (callback, delay, lastCallRef) => {
 }
 
 export function getSupportedAssets(chainType: ChainType, address: string) {
+  // Pearl wallet: no ordinals / runes / BRC-20 / alkanes / CAT support.
+  void chainType
   const assetTabKeys: AssetTabKey[] = []
-
-  const chain = CHAINS_MAP[chainType]
-  const networkType = chain.networkType
-  const addressType = getAddressType(address, networkType)
-
   const assets = {
     ordinals: false,
     runes: false,
@@ -204,31 +200,6 @@ export function getSupportedAssets(chainType: ChainType, address: string) {
     alkanes: false,
     brc20Prog: false,
   }
-
-  assets.ordinals = true
-  assetTabKeys.push(AssetTabKey.ORDINALS)
-
-  assets.runes = true
-  assetTabKeys.push(AssetTabKey.RUNES)
-
-  if (
-    (chainType === ChainType.FRACTAL_BITCOIN_MAINNET ||
-      chainType === ChainType.FRACTAL_BITCOIN_TESTNET) &&
-    (addressType == AddressType.P2TR || addressType == AddressType.P2WPKH)
-  ) {
-    assets.CAT20 = true
-    assetTabKeys.push(AssetTabKey.CAT)
-  }
-
-  if (chainType === ChainType.BITCOIN_MAINNET || chainType === ChainType.BITCOIN_SIGNET) {
-    assets.alkanes = true
-    assetTabKeys.push(AssetTabKey.MORE)
-  }
-
-  if (chainType === ChainType.BITCOIN_MAINNET || chainType === ChainType.BITCOIN_SIGNET) {
-    assets.brc20Prog = true
-  }
-
   return {
     assets,
     tabKeys: assetTabKeys,

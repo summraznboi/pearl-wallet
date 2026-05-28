@@ -86,7 +86,7 @@ const $viewPresets = {
 
   primary: Object.assign({}, $baseViewStyle, {
     backgroundColor: colors.yellow,
-    backgroundImage: 'linear-gradient(103.92deg, #EBB94C 0%, #E97E00 100%)',
+    backgroundImage: 'linear-gradient(103.92deg, #F4F1EA 0%, #A89B7E 100%)',
     height: '48px'
   } as CSSProperties),
 
@@ -125,7 +125,7 @@ const $viewPresets = {
 
   primaryV2: Object.assign({}, $baseViewStyle, {
     backgroundColor: colors.yellow,
-    backgroundImage: 'linear-gradient(103.92deg, #EBB94C 0%, #E97E00 100%)',
+    backgroundImage: 'linear-gradient(103.92deg, #F4F1EA 0%, #A89B7E 100%)',
     minHeight: 50,
     borderRadius: 12
   } as CSSProperties),

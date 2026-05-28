@@ -1,38 +1,24 @@
 /**
- * Notification related API methods
+ * Notification service — Pearl stub. No server-driven notifications.
  */
 
 import { NotificationListItem } from '@unisat/wallet-shared'
 import type { BaseHttpClient } from '../client/http-client'
 
 export class NotificationService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
-
-  // ========================================
-  // Notification related
-  // ========================================
-
-  /**
-   * Get notification list
-   */
-  async getList(): Promise<{
-    list: NotificationListItem[]
-    total: number
-  }> {
-    return this.httpClient.get('/v5/notification/list', {})
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  async read(notificationId: string): Promise<{
-    success: boolean
-  }> {
-    return this.httpClient.post('/v5/notification/read', { notificationId })
+  async getList(): Promise<{ list: NotificationListItem[]; total: number }> {
+    return { list: [], total: 0 }
   }
 
-  async readAll(notificationIds: string[]): Promise<{
-    success: boolean
-  }> {
-    return this.httpClient.post('/v5/notification/read-all', {
-      notificationIds,
-    })
+  async read(_notificationId: string): Promise<{ success: boolean }> {
+    return { success: true }
+  }
+
+  async readAll(_notificationIds: string[]): Promise<{ success: boolean }> {
+    return { success: true }
   }
 }

@@ -30,7 +30,7 @@
     "message": "アドレスまたは名前 (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "アドレスまたは名前 (.sats, .unisat, ...)"
+    "message": "アドレス"
   },
   "address_preview": {
     "message": "アドレス:"
@@ -114,7 +114,7 @@
     "message": "世界初のオープンソースOrdinals ChromeウォレットでインスクリプションをInscribeして保存しましょう！"
   },
   "appName": {
-    "message": "UniSat Wallet"
+    "message": "Pearl Wallet"
   },
   "approvalres_is_required": {
     "message": "approvalResが必要です"
@@ -420,7 +420,7 @@
     "message": "不明なエラー。"
   },
   "cold_wallet": {
-    "message": "UniSatコールドウォレットをリンクする"
+    "message": "Pearlコールドウォレットをリンクする"
   },
   "cold_wallet_signed_successfully": {
     "message": "コールドウォレットが正常にトランザクションに署名しました。取引詳細を確認してブロードキャストをクリックしてください。"
@@ -483,7 +483,7 @@
     "message": "USB経由で接続"
   },
   "connect_with_unisat_wallet": {
-    "message": "UniSat Walletに接続"
+    "message": "Pearl Walletに接続"
   },
   "connected": {
     "message": "接続済み"
@@ -666,10 +666,10 @@
     "message": "Atomicalsを無効にする"
   },
   "disclaimStr": {
-    "message": "サードパーティプラットフォームを通じてビットコインを購入しようとしています。クレジットカード決済サービスは当社のパートナーによって提供されます。UniSat Walletは仲介プラットフォームとしてのみ機能し、クレジットカード決済サービスの使用から生じる可能性のある潜在的な損失または損害について、一切の責任を負いません。"
+    "message": "サードパーティプラットフォームを通じてビットコインを購入しようとしています。クレジットカード決済サービスは当社のパートナーによって提供されます。Pearl Walletは仲介プラットフォームとしてのみ機能し、クレジットカード決済サービスの使用から生じる可能性のある潜在的な損失または損害について、一切の責任を負いません。"
   },
   "disclaimStrFb": {
-    "message": "第三者プラットフォームを通じてFBを購入しようとしていることに注意してください。クレジットカード支払いサービスは、私たちのパートナーによって提供されています。UniSat Walletは唯一の仲介プラットフォームであり、クレジットカード支払いサービスの使用による潜在的な損失や損害に対して責任を負いません。"
+    "message": "第三者プラットフォームを通じてFBを購入しようとしていることに注意してください。クレジットカード支払いサービスは、私たちのパートナーによって提供されています。Pearl Walletは唯一の仲介プラットフォームであり、クレジットカード支払いサービスの使用による潜在的な損失や損害に対して責任を負いません。"
   },
   "disclaimer": {
     "message": "免責事項"
@@ -789,19 +789,19 @@
     "message": "フィードバック"
   },
   "feerate_avg_desc": {
-    "message": "約30分"
+    "message": "約9分"
   },
   "feerate_avg_desc_fb": {
     "message": "約1.5分"
   },
   "feerate_fast_desc": {
-    "message": "約10分"
+    "message": "約3分"
   },
   "feerate_fast_desc_fb": {
     "message": "約30秒"
   },
   "feerate_slow_desc": {
-    "message": "約1時間"
+    "message": "約19分"
   },
   "feerate_slow_desc_fb": {
     "message": "約3分"
@@ -1221,7 +1221,7 @@
     "message": "私たちのウォレットが気に入ったら、評価してください！"
   },
   "linked_to_unisat_cold_wallet": {
-    "message": "UniSat コールドウォレットに接続済み"
+    "message": "Pearl コールドウォレットに接続済み"
   },
   "load_failed": {
     "message": "読み込み失敗"
@@ -1839,7 +1839,7 @@
     "message": "すべて拒否"
   },
   "reject_blocked_by_unisat_wallet": {
-    "message": "拒否 (UniSat Walletによりブロック)"
+    "message": "拒否 (Pearl Walletによりブロック)"
   },
   "remember_my_choice": {
     "message": "選択を記憶する"
@@ -2076,7 +2076,7 @@
     "message": "すべてに署名"
   },
   "sign_all_transactions_at_once": {
-    "message": "すべてのトランザクションを一度に署名することができますが、UniSat Walletは各トランザクションを個別に検証しないことに注意してください。信頼できるサイトでのみ使用することを強くお勧めします。"
+    "message": "すべてのトランザクションを一度に署名することができますが、Pearl Walletは各トランザクションを個別に検証しないことに注意してください。信頼できるサイトでのみ使用することを強くお勧めします。"
   },
   "sign_and_pay": {
     "message": "署名して支払う"
@@ -2346,7 +2346,7 @@
     "message": "このトークンは最大で"
   },
   "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "このウェブサイトはUniSatによって悪意があると特定されており、以下の可能性があります："
+    "message": "このウェブサイトはPearlによって悪意があると特定されており、以下の可能性があります："
   },
   "ticker": {
     "message": "ティッカー"
@@ -2499,7 +2499,7 @@
     "message": "利用不可"
   },
   "unavailable_tooltip": {
-    "message": "もし残高が利用不可に表示されている場合、それはあなたのUTXOsがインスクリプション、符文、brc-20資産、または未確認であるためにロックされている可能性があります。多くの場合、私たちのUTXO管理ツールを使用してこれらのUTXOsをロック解除し、再び使用可能にすることができます。"
+    "message": "もし残高が利用不可に表示されている場合、それはあなたのUTXOsがインスクリプション、符文、brc-20資産、または未確認であるためにロックされている可能性があります。"
   },
   "unconfirmed": {
     "message": "未確認"
@@ -2520,7 +2520,7 @@
     "message": "signDataリクエストを有効にすると、すべての資金とNFTを失う可能性があることを理解しています。"
   },
   "unisat": {
-    "message": "UNISAT"
+    "message": "PEARL"
   },
   "unisat_credits_label": {
     "message": "割引券"
@@ -2601,7 +2601,7 @@
     "message": "OKX Explorerで表示"
   },
   "view_on_unisat_explorer": {
-    "message": "UniSat Explorerで表示"
+    "message": "Pearl Explorerで表示"
   },
   "view_on_uniscan": {
     "message": "UniScanで見る"
@@ -2673,7 +2673,7 @@
     "message": "これを使用してウォレットをアンロックします"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "安全でない可能性があるため、このページへのアクセスはUniSat Walletによって制限されています。"
+    "message": "安全でない可能性があるため、このページへのアクセスはPearl Walletによって制限されています。"
   },
   "your_balance_have_to_be_merged": {
     "message": "あなたの"

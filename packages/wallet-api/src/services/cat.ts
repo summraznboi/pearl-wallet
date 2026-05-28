@@ -1,207 +1,149 @@
 /**
- * CAT20/CAT721-related API methods - Fully compatible with openapi.ts
+ * CAT20 / CAT721 service — Pearl stub. CAT tokens are not supported.
  */
 
 import { CAT_VERSION, UserToSignInput } from '@unisat/wallet-shared'
 import type { BaseHttpClient } from '../client/http-client'
 import type { CAT20Balance, CAT721CollectionInfo } from '../types'
+
+const UNSUPPORTED = (): never => {
+  throw new Error('CAT tokens are not supported on Pearl.')
+}
+
 export class CATService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
+  }
 
   async getCAT20List(
-    version: CAT_VERSION,
-    address: string,
-    cursor: number,
-    size: number
+    _version: CAT_VERSION,
+    _address: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: CAT20Balance[]; total: number }> {
-    return this.httpClient.get('/v5/cat20/list', { query: { address, cursor, size, version } })
+    return { list: [], total: 0 }
   }
 
-  async getAddressCAT20TokenSummary(version: CAT_VERSION, address: string, tokenId: string) {
-    return this.httpClient.get(
-      `/v5/cat20/token-summary?address=${address}&tokenId=${tokenId}&version=${version}`,
-      {}
-    )
+  async getAddressCAT20TokenSummary(
+    _version: CAT_VERSION,
+    _address: string,
+    _tokenId: string
+  ): Promise<any> {
+    return {}
   }
 
-  async getAddressCAT20UtxoSummary(version: CAT_VERSION, address: string, tokenId: string) {
-    return this.httpClient.get(
-      `/v5/cat20/utxo-summary?address=${address}&tokenId=${tokenId}&version=${version}`,
-      {}
-    )
+  async getAddressCAT20UtxoSummary(
+    _version: CAT_VERSION,
+    _address: string,
+    _tokenId: string
+  ): Promise<any> {
+    return {}
   }
 
   async transferCAT20Step1(
-    version: CAT_VERSION,
-    address: string,
-    pubkey: string,
-    to: string,
-    tokenId: string,
-    amount: string,
+    _version: CAT_VERSION,
+    _address: string,
+    _pubkey: string,
+    _to: string,
+    _tokenId: string,
+    _amount: string,
+    _feeRate: number
+  ): Promise<{
+    id: string
+    commitTx: string
+    toSignInputs: UserToSignInput[]
     feeRate: number
-  ) {
-    return this.httpClient.post<{
-      id: string
-      // base64 psbt
-      commitTx: string
-      toSignInputs: UserToSignInput[]
-      feeRate: number
-    }>('/v5/cat20/transfer-token-step1', {
-      version,
-      address,
-      pubkey,
-      to,
-      tokenId,
-      amount,
-      feeRate,
-    })
+  }> {
+    return UNSUPPORTED()
   }
 
-  async transferCAT20Step2(version: CAT_VERSION, transferId: string, signedPsbt: string) {
-    return this.httpClient.post<{
-      revealTx: string
-      toSignInputs: UserToSignInput[]
-    }>('/v5/cat20/transfer-token-step2', {
-      id: transferId,
-      psbt: signedPsbt,
-      version,
-    })
+  async transferCAT20Step2(
+    _version: CAT_VERSION,
+    _transferId: string,
+    _signedPsbt: string
+  ): Promise<{ revealTx: string; toSignInputs: UserToSignInput[] }> {
+    return UNSUPPORTED()
   }
 
-  async transferCAT20Step3(version: CAT_VERSION, transferId: string, signedPsbt: string) {
-    return this.httpClient.post<{
-      txid: string
-    }>('/v5/cat20/transfer-token-step3', {
-      id: transferId,
-      psbt: signedPsbt,
-      version,
-    })
+  async transferCAT20Step3(
+    _version: CAT_VERSION,
+    _transferId: string,
+    _signedPsbt: string
+  ): Promise<{ txid: string }> {
+    return UNSUPPORTED()
   }
 
-  async transferCAT20Step1ByMerge(version: CAT_VERSION, mergeId: string) {
-    return this.httpClient.post<{
-      id: string
-      // base64 psbt
-      commitTx: string
-      toSignInputs: UserToSignInput[]
-      feeRate: number
-    }>('/v5/cat20/transfer-token-step1-by-merge', {
-      mergeId,
-      version,
-    })
+  async transferCAT20Step1ByMerge(_version: CAT_VERSION, _mergeId: string): Promise<{
+    id: string
+    commitTx: string
+    toSignInputs: UserToSignInput[]
+    feeRate: number
+  }> {
+    return UNSUPPORTED()
   }
 
   async mergeCAT20Prepare(
-    version: CAT_VERSION,
-    address: string,
-    pubkey: string,
-    tokenId: string,
-    utxoCount: number,
-    feeRate: number
-  ) {
-    return this.httpClient.post<{
-      id: string
-      senderAddress: string
-      senderPubkey: string
-      tokenId: string
-      feeRate: number
-      batchIndex: number
-      batchCount: number
-      ct: number
-      version?: string
-    }>('/v5/cat20/merge-token-prepare', {
-      version,
-      address,
-      pubkey,
-      tokenId,
-      utxoCount,
-      feeRate,
-    })
+    _version: CAT_VERSION,
+    _address: string,
+    _pubkey: string,
+    _tokenId: string,
+    _utxoCount: number,
+    _feeRate: number
+  ): Promise<any> {
+    return UNSUPPORTED()
   }
 
-  async getMergeCAT20Status(version: CAT_VERSION, mergeId: string) {
-    return this.httpClient.post<{
-      id: string
-      senderAddress: string
-      senderPubkey: string
-      tokenId: string
-      feeRate: number
-      batchIndex: number
-      batchCount: number
-      ct: number
-      version?: string
-    }>('/v5/cat20/merge-token-status', {
-      id: mergeId,
-      version,
-    })
+  async getMergeCAT20Status(_version: CAT_VERSION, _mergeId: string): Promise<any> {
+    return UNSUPPORTED()
   }
 
   async getCAT721CollectionList(
-    version: CAT_VERSION,
-    address: string,
-    cursor: number,
-    size: number
+    _version: CAT_VERSION,
+    _address: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: CAT721CollectionInfo[]; total: number }> {
-    return this.httpClient.get('/v5/cat721/collection/list', {
-      query: { address, cursor, size, version },
-    })
+    return { list: [], total: 0 }
   }
 
   async getAddressCAT721CollectionSummary(
-    version: CAT_VERSION,
-    address: string,
-    collectionId: string
-  ) {
-    return this.httpClient.get(
-      `/v5/cat721/collection-summary?address=${address}&collectionId=${collectionId}&version=${version}`,
-      {}
-    )
+    _version: CAT_VERSION,
+    _address: string,
+    _collectionId: string
+  ): Promise<any> {
+    return {}
   }
 
   async transferCAT721Step1(
-    version: CAT_VERSION,
-    address: string,
-    pubkey: string,
-    to: string,
-    collectionId: string,
-    localId: string,
+    _version: CAT_VERSION,
+    _address: string,
+    _pubkey: string,
+    _to: string,
+    _collectionId: string,
+    _localId: string,
+    _feeRate: number
+  ): Promise<{
+    id: string
+    commitTx: string
+    toSignInputs: UserToSignInput[]
     feeRate: number
-  ) {
-    return this.httpClient.post<{
-      id: string
-      // base64 psbt
-      commitTx: string
-      toSignInputs: UserToSignInput[]
-      feeRate: number
-    }>('/v5/cat721/transfer-nft-step1', {
-      version,
-      address,
-      pubkey,
-      to,
-      collectionId,
-      localId,
-      feeRate,
-    })
+  }> {
+    return UNSUPPORTED()
   }
 
-  async transferCAT721Step2(version: CAT_VERSION, transferId: string, signedPsbt: string) {
-    return this.httpClient.post<{
-      revealTx: string
-      toSignInputs: UserToSignInput[]
-    }>('/v5/cat721/transfer-nft-step2', {
-      id: transferId,
-      psbt: signedPsbt,
-      version,
-    })
+  async transferCAT721Step2(
+    _version: CAT_VERSION,
+    _transferId: string,
+    _signedPsbt: string
+  ): Promise<{ revealTx: string; toSignInputs: UserToSignInput[] }> {
+    return UNSUPPORTED()
   }
 
-  async transferCAT721Step3(version: CAT_VERSION, transferId: string, signedPsbt: string) {
-    return this.httpClient.post<{
-      txid: string
-    }>('/v5/cat721/transfer-nft-step3', {
-      id: transferId,
-      psbt: signedPsbt,
-      version,
-    })
+  async transferCAT721Step3(
+    _version: CAT_VERSION,
+    _transferId: string,
+    _signedPsbt: string
+  ): Promise<{ txid: string }> {
+    return UNSUPPORTED()
   }
 }

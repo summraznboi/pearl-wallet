@@ -21,9 +21,11 @@ const palette = {
   green: '#41B530',
   green_light: '#5ec04f',
 
-  yellow_dark: '#d5ac00',
-  yellow: '#e3bb5f',
-  yellow_light: '#fcd226',
+  // Pearl accent palette. Repurposed `yellow` slot so existing references
+  // (colors.primary, ticker_color, etc.) pick up the pearl tone automatically.
+  yellow_dark: '#8C7E63',
+  yellow: '#C7B98F',
+  yellow_light: '#EDE5D2',
 
   red_dark: '#c92b40',
   red: '#ED334B',
@@ -39,7 +41,7 @@ const palette = {
   orange_light: '#ff8f42',
   orange_light2: '#FF7C2A',
 
-  gold: '#eac249'
+  gold: '#C7B98F'
 };
 
 export const colors = Object.assign({}, palette, {
@@ -68,7 +70,7 @@ export const colors = Object.assign({}, palette, {
   border: 'rgba(255,255,255,0.08)',
   border2: 'rgba(255, 255, 255, 0.1)',
 
-  icon_yellow: '#FFBA33',
+  icon_yellow: '#C7B98F',
 
   brc20_deploy: '#233933',
   brc20_transfer: '#375e4d',
@@ -78,7 +80,7 @@ export const colors = Object.assign({}, palette, {
   value_up_color: '#4DA474',
   value_down_color: '#BF3F4D',
 
-  ticker_color: '#eac249',
+  ticker_color: '#C7B98F',
   ticker_color2: 'rgba(255, 255, 255, 0.85)',
 
   success: '#7BE098',

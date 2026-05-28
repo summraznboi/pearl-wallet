@@ -15,6 +15,7 @@ import * as txHelpers from '@unisat/tx-helpers'
 import { UnspentOutput, signMessageOfBIP322Simple } from '@unisat/tx-helpers'
 import {
   UTXO_DUST,
+  addressToScriptPk,
   bitcoin,
   eccManager,
   genPsbtOfBIP322Simple,
@@ -1240,25 +1241,25 @@ export class WalletController extends BaseController {
   }
 
   getBTCUtxos = async () => {
-    // getBTCAccount
     const account = preferenceService.getCurrentAccount()
     if (!account) throw new Error('no current account')
 
-    const utxos = await walletApiService.bitcoin.getBTCUtxos(account.address)
+    const networkType = this.getNetworkType()
+    // Pearl Blockbook does not return scriptPk in /address; derive it locally
+    // from the (P2TR) address.
+    const scriptPkHex = addressToScriptPk(account.address, networkType).toString('hex')
 
-    const btcUtxos = utxos.map(v => {
-      return {
-        txid: v.txid,
-        vout: v.vout,
-        satoshis: v.satoshis,
-        scriptPk: v.scriptPk,
-        addressType: v.addressType,
-        pubkey: account.pubkey,
-        inscriptions: v.inscriptions,
-        atomicals: [],
-      }
-    })
-    return btcUtxos
+    const utxos = await walletApiService.bitcoin.getBTCUtxos(account.address)
+    return utxos.map(v => ({
+      txid: v.txid,
+      vout: v.vout,
+      satoshis: v.satoshis,
+      scriptPk: v.scriptPk || scriptPkHex,
+      addressType: v.addressType,
+      pubkey: account.pubkey,
+      inscriptions: v.inscriptions,
+      atomicals: [],
+    }))
   }
 
   createSendBTCPsbt = async ({
@@ -1645,18 +1646,27 @@ export class WalletController extends BaseController {
 
   pushTx = async (txData: string) => {
     let rawtx = txData
+    let txObj: bitcoin.Transaction | null = null
     if (txData.startsWith('70')) {
-      // psbthex
+      // psbthex — finalize and extract the raw transaction
       const psbt = psbtFromString(txData)
       try {
         psbt.finalizeAllInputs()
       } catch (e) {
-        // skip
+        // already finalized; ignore
       }
-      rawtx = psbt.extractTransaction(true).toHex()
+      txObj = psbt.extractTransaction(true)
+      rawtx = txObj.toHex()
+    } else {
+      try {
+        txObj = bitcoin.Transaction.fromHex(rawtx)
+      } catch {
+        // leave txObj null
+      }
     }
-    const txid = await walletApiService.bitcoin.pushTx(rawtx)
-    return txid
+    const localTxid = txObj ? txObj.getId() : ''
+    const remoteTxid = await walletApiService.bitcoin.pushTx(rawtx)
+    return remoteTxid || localTxid
   }
 
   getAccounts = async () => {
@@ -1967,8 +1977,13 @@ export class WalletController extends BaseController {
   }
 
   getAddressUtxo = async (address: string) => {
+    const networkType = this.getNetworkType()
+    const scriptPkHex = addressToScriptPk(address, networkType).toString('hex')
     const data = await walletApiService.bitcoin.getBTCUtxos(address)
-    return data
+    return data.map(v => ({
+      ...v,
+      scriptPk: v.scriptPk || scriptPkHex,
+    }))
   }
 
   getConnectedSites = (): ConnectedSite[] => {
@@ -2101,8 +2116,89 @@ export class WalletController extends BaseController {
     return walletApiService.brc20.getInscribeResult(orderId)
   }
 
-  decodePsbt = (psbtHex: string, website: string) => {
-    return walletApiService.bitcoin.decodePsbt(psbtHex, website)
+  decodePsbt = async (psbtHex: string, website: string) => {
+    // Pearl decodes PSBTs locally — there is no remote decoder. We trust the
+    // witnessUtxo embedded in each input (the wallet attaches it during
+    // createSendBTCPsbt / signPsbt prep) for value + scriptPk. Asset arrays
+    // (inscriptions / runes / alkanes) are always empty on Pearl.
+    void website
+    const networkType = this.getNetworkType()
+    const psbt = psbtFromString(psbtHex)
+    const tx = psbt.txInputs.length ? psbt : null
+    if (!tx) {
+      throw new Error('invalid psbt')
+    }
+
+    let totalIn = 0
+    let totalOut = 0
+    let anyRbf = false
+
+    const inputInfos = psbt.txInputs.map((txIn, i) => {
+      const data = psbt.data.inputs[i] || ({} as any)
+      let value = 0
+      let scriptHex: Buffer | undefined
+      if (data.witnessUtxo) {
+        value = Number(data.witnessUtxo.value)
+        scriptHex = data.witnessUtxo.script
+      } else if (data.nonWitnessUtxo) {
+        try {
+          const prev = bitcoin.Transaction.fromBuffer(data.nonWitnessUtxo)
+          const out = prev.outs[txIn.index]
+          if (out) {
+            value = Number(out.value)
+            scriptHex = out.script
+          }
+        } catch {
+          // leave defaults
+        }
+      }
+      totalIn += value
+      const seq = txIn.sequence ?? 0xffffffff
+      if (seq < 0xfffffffe) anyRbf = true
+      const address = scriptHex ? scriptPkToAddress(scriptHex, networkType) : ''
+      const txid = Buffer.from([...txIn.hash]).reverse().toString('hex')
+      return {
+        txid,
+        vout: txIn.index,
+        address,
+        value,
+        inscriptions: [],
+        sighashType: data.sighashType ?? 1,
+        runes: [],
+        alkanes: [],
+      }
+    })
+
+    const outputInfos = psbt.txOutputs.map(out => {
+      const v = Number(out.value)
+      totalOut += v
+      return {
+        address: out.address || scriptPkToAddress(out.script, networkType),
+        value: v,
+        inscriptions: [],
+        runes: [],
+        alkanes: [],
+      }
+    })
+
+    const fee = Math.max(0, totalIn - totalOut)
+    // Rough P2TR vsize estimate; close enough for a preview fee rate.
+    const vsize = 11 + 58 * inputInfos.length + 43 * outputInfos.length
+    const feeRate = vsize > 0 ? Math.max(1, Math.round(fee / vsize)) : 1
+
+    return {
+      inputInfos,
+      outputInfos,
+      inscriptions: {} as { [k: string]: any },
+      feeRate,
+      fee,
+      features: { rbf: anyRbf },
+      risks: [],
+      psbtHex,
+      rawtx: '',
+      toAddress: outputInfos[0]?.address || '',
+      estimateFee: fee,
+    } as any
   }
 
   analyzeLocalPsbts = async (toSignDatas: ToSignData[]): Promise<LocalPsbtSummary> => {

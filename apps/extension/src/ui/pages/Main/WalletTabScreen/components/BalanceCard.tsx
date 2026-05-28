@@ -13,7 +13,6 @@ export function BalanceCard() {
     unavailableAmount,
     unavailableTipText,
     balanceValue,
-    chain,
     t,
     isCurrentChainBalance,
     showUtxoToolButton,
@@ -29,9 +28,7 @@ export function BalanceCard() {
     refreshBalance
   } = useBalanceCardLogic();
 
-  const backgroundImage = chain.isFractal
-    ? './images/icons/artifacts/balance-bg-fb.png'
-    : './images/icons/artifacts/balance-bg-btc.png';
+  const backgroundImage = './images/icons/artifacts/balance-bg-pearl.png';
 
   const stopCardToggle = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
@@ -40,7 +37,7 @@ export function BalanceCard() {
   return (
     <Column
       style={{
-        background: 'linear-gradient(117deg, #ffda8d 1.38%, #bf630f 94.19%)',
+        background: 'linear-gradient(117deg, #F4F1EA 1.38%, #8C7E63 94.19%)',
         borderRadius: 16,
         padding: 8,
         position: 'relative'

@@ -19,6 +19,12 @@ export enum WordsType {
   WORDS_24,
 }
 
+// Index-aligned with the AddressType enum (P2PKH=0, P2WPKH=1, P2TR=2, ...).
+// Several consumers (wallet-background, keyring-service, settings) do
+// `ADDRESS_TYPES[currentKeyring.addressType]` — breaking that alignment crashes
+// the Settings tab. Pearl is taproot-only at the *display* layer (see
+// RESTORE_WALLETS / address-picker filtering), but every enum slot must still
+// resolve to a valid entry here.
 export const ADDRESS_TYPES: {
   value: AddressType
   label: string
@@ -40,7 +46,7 @@ export const ADDRESS_TYPES: {
     label: 'P2WPKH',
     name: 'Native Segwit (P2WPKH)',
     hdPath: "m/84'/0'/0'/0",
-    displayIndex: 0,
+    displayIndex: 1,
     isUnisatLegacy: false,
   },
   {
@@ -48,7 +54,7 @@ export const ADDRESS_TYPES: {
     label: 'P2TR',
     name: 'Taproot (P2TR)',
     hdPath: "m/86'/0'/0'/0",
-    displayIndex: 2,
+    displayIndex: 0,
     isUnisatLegacy: false,
   },
   {
@@ -56,7 +62,7 @@ export const ADDRESS_TYPES: {
     label: 'P2SH-P2WPKH',
     name: 'Nested Segwit (P2SH-P2WPKH)',
     hdPath: "m/49'/0'/0'/0",
-    displayIndex: 1,
+    displayIndex: 2,
     isUnisatLegacy: false,
   },
   {
@@ -203,7 +209,6 @@ export const NETWORK_TYPES = [
     name: 'livenet',
     validNames: [0, 'livenet', 'mainnet'],
   },
-  { value: NetworkType.TESTNET, label: 'TESTNET', name: 'testnet', validNames: ['testnet'] },
 ]
 
 export type TypeChain = {
@@ -232,137 +237,27 @@ export type TypeChain = {
   enableLowFeeMode?: boolean
 }
 
+// Pearl uses Bitcoin mainnet parameters but with a custom 'prl' bech32 prefix
+// (see packages/wallet-bitcoin/src/network). The ChainType enum key
+// BITCOIN_MAINNET is intentionally reused to minimise churn across the codebase.
 const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
   [ChainType.BITCOIN_MAINNET]: {
     enum: ChainType.BITCOIN_MAINNET,
-    label: 'Bitcoin',
-    iconLabel: 'Bitcoin',
-    icon: 'bitcoinMainnet',
-    unit: 'BTC',
+    label: 'Pearl',
+    iconLabel: 'Pearl',
+    icon: 'pearlMainnet',
+    unit: 'PRL',
     networkType: NetworkType.MAINNET,
-    endpoints: ['https://wallet-api.unisat.space', 'https://wallet-api.unisat.io'],
-    mempoolSpaceUrl: 'https://mempool.space',
-    unisatUrl: 'https://link.unisat.space/btc',
-    ordinalsUrl: 'https://ordinals.com',
-    contentUrl: 'https://static.unisat.space/content',
-    unisatExplorerUrl: 'https://uniscan.cc',
-    okxExplorerUrl: '',
-    showPrice: true,
-    defaultExplorer: 'unisat-explorer',
-    enableBrc20Prog: true,
-    iconBaseUrl: 'https://static.unisat.space/icon',
-    enableLowFeeMode: true,
-    svg: 'bitcoin-mainnet',
-  },
-  [ChainType.BITCOIN_TESTNET]: {
-    enum: ChainType.BITCOIN_TESTNET,
-    label: 'Bitcoin Testnet',
-    iconLabel: 'Bitcoin',
-    icon: 'bitcoinTestnet',
-    unit: 'tBTC',
-    networkType: NetworkType.TESTNET,
-    endpoints: ['https://wallet-api-testnet.unisat.io'],
-    mempoolSpaceUrl: 'https://mempool.space/testnet',
-    unisatUrl: 'https://link.unisat.space/testnet',
-    ordinalsUrl: 'https://testnet.ordinals.com',
-    contentUrl: 'https://testnet-static.unisat.space/content',
-    iconBaseUrl: 'https://testnet-static.unisat.space/icon',
-    unisatExplorerUrl: '',
-    okxExplorerUrl: '',
-    showPrice: false,
-    defaultExplorer: 'mempool-space',
-    svg: 'bitcoin-testnet',
-  },
-  [ChainType.BITCOIN_TESTNET4]: {
-    enum: ChainType.BITCOIN_TESTNET4,
-    label: 'Bitcoin Testnet4 (Beta)',
-    iconLabel: 'Bitcoin',
-    icon: 'bitcoinTestnet',
-    unit: 'tBTC',
-    networkType: NetworkType.TESTNET,
-    endpoints: [
-      'https://wallet-api-testnet4.unisat.io',
-      'https://wallet-api-testnet4.unisat.space',
-    ],
-    mempoolSpaceUrl: 'https://mempool.space/testnet4',
-    unisatUrl: 'https://link.unisat.space/testnet4',
-    ordinalsUrl: 'https://testnet4.ordinals.com',
-    contentUrl: 'https://testnet4-static.unisat.space/content',
-    iconBaseUrl: 'https://testnet4-static.unisat.space',
-    unisatExplorerUrl: '',
-    okxExplorerUrl: '',
-    showPrice: false,
-    defaultExplorer: 'mempool-space',
-    svg: 'bitcoin-testnet',
-  },
-  [ChainType.BITCOIN_SIGNET]: {
-    enum: ChainType.BITCOIN_SIGNET,
-    label: 'Bitcoin Signet',
-    iconLabel: 'Bitcoin',
-    icon: 'bitcoinSignet',
-    unit: 'sBTC',
-    networkType: NetworkType.TESTNET,
-    endpoints: ['https://wallet-api-signet.unisat.io', 'https://wallet-api-signet.unisat.space'],
-    mempoolSpaceUrl: 'https://mempool.space/signet',
-    unisatUrl: 'https://signet.unisat.io',
-    ordinalsUrl: 'https://signet.ordinals.com',
-    contentUrl: 'https://signet-static.unisat.space/content',
-    unisatExplorerUrl: 'https://uniscan.cc/signet',
-    iconBaseUrl: 'https://signet-static.unisat.space/icon',
+    endpoints: ['https://blockbook.pearlresearch.ai/api'],
+    mempoolSpaceUrl: 'https://explorer.pearlresearch.ai',
+    unisatUrl: 'https://explorer.pearlresearch.ai',
+    ordinalsUrl: '',
+    contentUrl: '',
+    unisatExplorerUrl: 'https://explorer.pearlresearch.ai',
     okxExplorerUrl: '',
     showPrice: false,
     defaultExplorer: 'unisat-explorer',
-    enableBrc20Prog: true,
-    svg: 'bitcoin-signet',
-  },
-  [ChainType.FRACTAL_BITCOIN_MAINNET]: {
-    enum: ChainType.FRACTAL_BITCOIN_MAINNET,
-    label: 'Fractal Bitcoin',
-    iconLabel: 'Fractal',
-    icon: 'fractal',
-
-    unit: 'FB',
-    networkType: NetworkType.MAINNET,
-    endpoints: ['https://wallet-api-fractal.unisat.space'],
-    mempoolSpaceUrl: 'https://mempool.fractalbitcoin.io',
-    unisatUrl: 'https://link.unisat.space/fractal',
-    ordinalsUrl: 'https://ordinals.fractalbitcoin.io',
-    contentUrl: 'https://fractal-static.unisat.space/content',
-    unisatExplorerUrl: 'https://link.unisat.space/uniscan-fractal',
-    iconBaseUrl: 'https://fractal-static.unisat.space/icon',
-    okxExplorerUrl: '',
-    isViewTxHistoryInternally: false,
-    disable: false,
-    isFractal: true,
-    showPrice: true,
-    defaultExplorer: 'unisat-explorer',
-    enableBrc20SingleStep: true,
-    svg: 'fractalbitcoin-mainnet',
-  },
-  [ChainType.FRACTAL_BITCOIN_TESTNET]: {
-    enum: ChainType.FRACTAL_BITCOIN_TESTNET,
-    label: 'Fractal Bitcoin Testnet',
-    iconLabel: 'Fractal',
-    icon: 'fractalTestnet',
-    unit: 'tFB',
-    networkType: NetworkType.MAINNET,
-    endpoints: [
-      'https://wallet-api-fractal-testnet.unisat.io',
-      'https://wallet-api-fractal-testnet.unisat.space',
-    ],
-    mempoolSpaceUrl: 'https://mempool-testnet.fractalbitcoin.io',
-    unisatUrl: 'https://link.unisat.space/fractal-testnet',
-    ordinalsUrl: 'https://ordinals-testnet.fractalbitcoin.io',
-    contentUrl: 'https://fractal-testnet-static.unisat.space/content',
-    unisatExplorerUrl: 'https://link.unisat.space/uniscan-fractal-testnet',
-    iconBaseUrl: 'https://fractal-testnet-static.unisat.space/icon',
-    okxExplorerUrl: '',
-    isViewTxHistoryInternally: false,
-    isFractal: true,
-    showPrice: false,
-    defaultExplorer: 'unisat-explorer',
-    enableBrc20SingleStep: true,
-    svg: 'fractalbitcoin-testnet',
+    svg: 'pearl-mainnet',
   },
 }
 
@@ -385,34 +280,12 @@ export const PROD_CHAIN_GROUPS: TypeChainGroup[] = [
     type: 'single',
     chain: PROD_CHAINS_MAP[ChainType.BITCOIN_MAINNET]!,
   },
-  {
-    type: 'list',
-    label: 'Bitcoin Testnet',
-    icon: 'testnet-all',
-    items: [
-      PROD_CHAINS_MAP[ChainType.BITCOIN_TESTNET]!,
-      PROD_CHAINS_MAP[ChainType.BITCOIN_TESTNET4]!,
-      PROD_CHAINS_MAP[ChainType.BITCOIN_SIGNET]!,
-    ],
-  },
-  {
-    type: 'single',
-    chain: PROD_CHAINS_MAP[ChainType.FRACTAL_BITCOIN_MAINNET]!,
-  },
-  {
-    type: 'single',
-    chain: PROD_CHAINS_MAP[ChainType.FRACTAL_BITCOIN_TESTNET]!,
-  },
 ]
 
 export const DEV_CHAIN_GROUPS: TypeChainGroup[] = [
   {
     type: 'single',
     chain: DEV_CHAINS_MAP[ChainType.BITCOIN_MAINNET]!,
-  },
-  {
-    type: 'single',
-    chain: DEV_CHAINS_MAP[ChainType.FRACTAL_BITCOIN_MAINNET]!,
   },
 ]
 
@@ -433,10 +306,10 @@ export const WALLETCONNECT_STATUS_MAP = {
   FAILD: 6,
 }
 
-export const INTERNAL_REQUEST_ORIGIN = 'https://unisat.io'
+export const INTERNAL_REQUEST_ORIGIN = 'https://pearlresearch.ai'
 
 export const INTERNAL_REQUEST_SESSION = {
-  name: 'UniSat Wallet',
+  name: 'Pearl Wallet',
   origin: INTERNAL_REQUEST_ORIGIN,
   icon: './images/logo/logo@128x.png',
 }
@@ -544,21 +417,19 @@ export const TO_LOCALE_STRING_CONFIG = {
 
 export const SAFE_DOMAIN_CONFIRMATION = 3
 
-export const GITHUB_URL = 'https://github.com/unisat-wallet/extension'
-export const DISCORD_URL = 'https://discord.com/invite/EMskB2sMz8'
-export const TWITTER_URL = 'https://twitter.com/unisat_wallet'
-export const TELEGRAM_URL = 'https://t.me/unisat_wallet'
-export const WEBSITE_URL = 'https://unisat.io'
-export const FEEDBACK_URL = 'https://feedback.unisat.io'
-export const EMAIL_URL = 'contact@unisat.io'
-export const DOCS_URL = 'https://link.unisat.space/docs'
-export const MEDIUM_URL = 'https://unisat-wallet.medium.com/'
-export const UPDATE_URL =
-  'https://chromewebstore.google.com/detail/unisat-wallet/ppbibelpcjmhbdihakflkdcoccbgbkpo'
-export const TERMS_OF_SERVICE_URL = 'https://link.unisat.space/terms-of-service-app'
-export const PRIVACY_POLICY_URL = 'https://link.unisat.space/privacy-policy-app'
-export const LOW_FEE_GUIDE_URL =
-  'https://docs.unisat.io/technical/understanding-sub-1-sat-vb-bitcoin-transactions/sub-1-sat-vb-mode-setup-guide'
+export const GITHUB_URL = 'https://pearlresearch.ai'
+export const DISCORD_URL = 'https://pearlresearch.ai'
+export const TWITTER_URL = 'https://pearlresearch.ai'
+export const TELEGRAM_URL = 'https://pearlresearch.ai'
+export const WEBSITE_URL = 'https://pearlresearch.ai'
+export const FEEDBACK_URL = 'https://pearlresearch.ai'
+export const EMAIL_URL = 'contact@pearlresearch.ai'
+export const DOCS_URL = 'https://pearlresearch.ai'
+export const MEDIUM_URL = 'https://pearlresearch.ai'
+export const UPDATE_URL = 'https://pearlresearch.ai'
+export const TERMS_OF_SERVICE_URL = 'https://pearlresearch.ai'
+export const PRIVACY_POLICY_URL = 'https://pearlresearch.ai'
+export const LOW_FEE_GUIDE_URL = 'https://pearlresearch.ai'
 export const UNCONFIRMED_HEIGHT = 4194303
 
 export const PAYMENT_CHANNELS = {
@@ -632,69 +503,17 @@ export const RESTORE_WALLETS: {
 }[] = [
   {
     value: RestoreWalletType.UNISAT,
-    name: 'UniSat Wallet',
-    addressTypes: [
-      AddressType.P2WPKH,
-      AddressType.P2SH_P2WPKH,
-      AddressType.P2TR,
-      AddressType.P2PKH,
-      AddressType.M44_P2WPKH,
-      AddressType.M44_P2TR,
-    ],
-    wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
-    customPathSupport: true,
-    phraseSupport: true,
-  },
-  {
-    value: RestoreWalletType.MAGIC_EDEN,
-    name: 'Magic Eden Wallet',
-    addressTypes: [AddressType.P2WPKH, AddressType.P2TR],
-    wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
-    customPathSupport: false,
-    phraseSupport: false,
-  },
-  {
-    value: RestoreWalletType.XVERSE,
-    name: 'Xverse Wallet',
-    addressTypes: [AddressType.P2WPKH, AddressType.P2TR, AddressType.P2SH_P2WPKH],
-    wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
-    customPathSupport: false,
-    phraseSupport: false,
-  },
-  {
-    value: RestoreWalletType.SPARROW,
-    name: 'Sparrow Wallet',
-    addressTypes: [
-      AddressType.P2PKH,
-      AddressType.P2WPKH,
-      AddressType.P2SH_P2WPKH,
-      AddressType.P2TR,
-    ],
-    wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
-    customPathSupport: true,
-    phraseSupport: true,
-  },
-
-  {
-    value: RestoreWalletType.OW,
-    name: 'Ordinals Wallet',
+    name: 'Pearl Wallet',
     addressTypes: [AddressType.P2TR],
-    wordsTypes: [WordsType.WORDS_12],
-    customPathSupport: false,
-    phraseSupport: false,
+    wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
+    customPathSupport: true,
+    phraseSupport: true,
   },
   {
     value: RestoreWalletType.OTHERS,
     name: 'Other Wallet',
     i18nKey: 'other_wallet',
-    addressTypes: [
-      AddressType.P2PKH,
-      AddressType.P2WPKH,
-      AddressType.P2SH_P2WPKH,
-      AddressType.P2TR,
-      AddressType.M44_P2WPKH,
-      AddressType.M44_P2TR,
-    ],
+    addressTypes: [AddressType.P2TR],
     wordsTypes: [WordsType.WORDS_12, WordsType.WORDS_24],
     customPathSupport: true,
     phraseSupport: true,

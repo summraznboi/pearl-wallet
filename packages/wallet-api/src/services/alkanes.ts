@@ -1,8 +1,8 @@
 /**
- * Alkanes-related API methods - Fully compatible with openapi.ts
+ * Alkanes service — Pearl stub. Alkanes are not supported.
  */
 
-import type { BaseHttpClient, HttpClient } from '../client/http-client'
+import type { BaseHttpClient } from '../client/http-client'
 import type {
   AlkanesBalance,
   AddressAlkanesTokenSummary,
@@ -13,77 +13,48 @@ import type {
 } from '../types'
 
 export class AlkanesService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
-
-  // ========================================
-  // Alkanes related
-  // ========================================
-
-  /**
-   * Get address Alkanes list
-   */
-  async getAlkanesList(
-    address: string,
-    cursor: number,
-    size: number
-  ): Promise<{ list: AlkanesBalance[]; total: number }> {
-    return this.httpClient.get('/v5/alkanes/list', {
-      query: { address, cursor, size },
-    })
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  /**
-   * Get Alkanes UTXO
-   */
-  async getAlkanesUtxos(address: string, alkaneid: string): Promise<UTXO[]> {
-    return this.httpClient.get('/v5/alkanes/utxos', {
-      query: { address, alkaneid },
-    })
+  async getAlkanesList(
+    _address: string,
+    _cursor: number,
+    _size: number
+  ): Promise<{ list: AlkanesBalance[]; total: number }> {
+    return { list: [], total: 0 }
+  }
+
+  async getAlkanesUtxos(_address: string, _alkaneid: string): Promise<UTXO[]> {
+    return []
   }
 
   async getAddressAlkanesTokenSummary(
-    address: string,
-    alkaneid: string,
-    fetchAvailable?: boolean
+    _address: string,
+    _alkaneid: string,
+    _fetchAvailable?: boolean
   ): Promise<AddressAlkanesTokenSummary> {
-    return this.httpClient.get(
-      `/v5/alkanes/token-summary?address=${address}&alkaneid=${alkaneid}&fetchAvailable=${
-        fetchAvailable ? true : false
-      }`,
-      {}
-    )
+    return {} as AddressAlkanesTokenSummary
   }
 
   async getAlkanesCollectionList(
-    address: string,
-    cursor: number,
-    size: number
+    _address: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: AlkanesCollection[]; total: number }> {
-    return this.httpClient.get('/v5/alkanes/collection/list', {
-      query: { address, cursor, size },
-    })
+    return { list: [], total: 0 }
   }
 
   async getAlkanesCollectionItems(
-    address: string,
-    collectionId: string,
-    cursor: number,
-    size: number
+    _address: string,
+    _collectionId: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: AlkanesInfo[]; total: number }> {
-    return this.httpClient.get('/v5/alkanes/collection/items', {
-      query: { address, collectionId, cursor, size },
-    })
+    return { list: [], total: 0 }
   }
 
-  async createAlkanesSendTx({
-    userAddress,
-    userPubkey,
-    receiver,
-    alkaneid,
-    amount,
-    feeRate,
-    enableRBF = true,
-  }: {
+  async createAlkanesSendTx(_params: {
     userAddress: string
     userPubkey: string
     receiver: string
@@ -91,19 +62,7 @@ export class AlkanesService {
     amount: string
     feeRate: number
     enableRBF?: boolean
-  }): Promise<{
-    orderId: string
-    psbtHex: string
-    toSignInputs: UserToSignInput[]
-  }> {
-    return this.httpClient.post('/v5/alkanes/create-send-tx', {
-      userAddress,
-      userPubkey,
-      receiver,
-      alkaneid,
-      amount,
-      feeRate,
-      enableRBF,
-    })
+  }): Promise<{ orderId: string; psbtHex: string; toSignInputs: UserToSignInput[] }> {
+    throw new Error('Alkanes are not supported on Pearl.')
   }
 }

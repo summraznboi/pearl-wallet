@@ -1,103 +1,61 @@
 /**
- * Inscriptions-related API methods - Fully compatible with openapi.ts
+ * Inscriptions service — Pearl stub.
+ *
+ * Pearl is BTC-only; inscriptions / ordinals are not supported. All methods
+ * return empty data so callers degrade gracefully.
  */
 
-import type { BaseHttpClient, HttpClient } from '../client/http-client'
+import type { BaseHttpClient } from '../client/http-client'
 import type {
   Inscription,
   InscriptionSummary,
   AppSummary,
   UTXO,
   UTXO_Detail,
-  PaginationParams,
 } from '../types'
 
 export class InscriptionsService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
-
-  // ========================================
-  // Inscription UTXO related
-  // ========================================
-
-  /**
-   * Get inscription UTXO
-   */
-  async getInscriptionUtxo(inscriptionId: string): Promise<UTXO> {
-    return this.httpClient.get('/v5/inscription/utxo', {
-      query: { inscriptionId },
-    })
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  /**
-   * Get inscription UTXO details
-   */
-  async getInscriptionUtxoDetail(inscriptionId: string): Promise<UTXO_Detail> {
-    return this.httpClient.get('/v5/inscription/utxo-detail', {
-      query: { inscriptionId },
-    })
+  async getInscriptionUtxo(_inscriptionId: string): Promise<UTXO> {
+    throw new Error('Inscriptions are not supported on Pearl.')
   }
 
-  /**
-   * Get UTXOs for multiple inscriptions
-   */
-  async getInscriptionUtxos(inscriptionIds: string[]): Promise<UTXO[]> {
-    return this.httpClient.post('/v5/inscription/utxos', { inscriptionIds })
+  async getInscriptionUtxoDetail(_inscriptionId: string): Promise<UTXO_Detail> {
+    throw new Error('Inscriptions are not supported on Pearl.')
   }
 
-  // ========================================
-  // Inscription information related
-  // ========================================
-
-  /**
-   * Get inscription information
-   */
-  async getInscriptionInfo(inscriptionId: string): Promise<Inscription> {
-    return this.httpClient.get('/v5/inscription/info', {
-      query: { inscriptionId },
-    })
+  async getInscriptionUtxos(_inscriptionIds: string[]): Promise<UTXO[]> {
+    return []
   }
 
-  /**
-   * Get address inscription list
-   */
+  async getInscriptionInfo(_inscriptionId: string): Promise<Inscription> {
+    throw new Error('Inscriptions are not supported on Pearl.')
+  }
+
   async getAddressInscriptions(
-    address: string,
-    cursor: number,
-    size: number
+    _address: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: Inscription[]; total: number }> {
-    return this.httpClient.get('/v5/address/inscriptions', {
-      query: { address, cursor, size },
-    })
+    return { list: [], total: 0 }
   }
 
-  /**
-   * Get inscription summary
-   */
   async getInscriptionSummary(): Promise<InscriptionSummary> {
-    return this.httpClient.get('/v5/default/inscription-summary')
+    return { mintedList: [], inProgressList: [] } as any as InscriptionSummary
   }
 
-  /**
-   * Get application summary
-   */
   async getAppSummary(): Promise<AppSummary> {
-    return this.httpClient.get('/v5/default/app-summary-v2')
+    return { apps: [] } as AppSummary
   }
 
-  // ========================================
-  // Ordinals related
-  // ========================================
-
-  /**
-   * Get Ordinals inscriptions
-   */
   async getOrdinalsInscriptions(
-    address: string,
-    cursor: number,
-    size: number
+    _address: string,
+    _cursor: number,
+    _size: number
   ): Promise<{ list: Inscription[]; total: number }> {
-    return this.httpClient.get('/v5/ordinals/inscriptions', {
-      query: { address, cursor, size },
-    })
+    return { list: [], total: 0 }
   }
 }

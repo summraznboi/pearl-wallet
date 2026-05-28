@@ -1,6 +1,6 @@
 import { AddressType, NetworkType } from '@unisat/wallet-types'
 import { bitcoin } from '../bitcoin-core'
-import { toPsbtNetwork } from '../network'
+import { pearlNetwork, toPsbtNetwork } from '../network'
 
 /**
  * Convert public key to bitcoin payment object.
@@ -66,14 +66,18 @@ export function publicKeyToScriptPk(
 }
 
 export function decodeAddress(address: string) {
-  const mainnet = bitcoin.networks.bitcoin
+  const mainnet = pearlNetwork
   const testnet = bitcoin.networks.testnet
   const regtest = bitcoin.networks.regtest
   let decodeBase58: bitcoin.address.Base58CheckResult
   let decodeBech32: bitcoin.address.Bech32Result
   let networkType: NetworkType = NetworkType.MAINNET
   let addressType: AddressType = AddressType.UNKNOWN
-  if (address.startsWith('bc1') || address.startsWith('tb1') || address.startsWith('bcrt1')) {
+  if (
+    address.startsWith(`${pearlNetwork.bech32}1`) ||
+    address.startsWith('tb1') ||
+    address.startsWith('bcrt1')
+  ) {
     try {
       decodeBech32 = bitcoin.address.fromBech32(address)
       if (decodeBech32.prefix === mainnet.bech32) {

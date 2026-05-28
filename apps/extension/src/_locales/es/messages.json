@@ -30,7 +30,7 @@
     "message": "Dirección o nombre (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "Dirección o nombre (.sats, .unisat, ...)"
+    "message": "Dirección"
   },
   "address_preview": {
     "message": "Dirección:"
@@ -114,7 +114,7 @@
     "message": "¡Inscribe y guarda tus inscripciones en la primera billetera Ordinals de código abierto para Chrome del mundo!"
   },
   "appName": {
-    "message": "UniSat Wallet"
+    "message": "Pearl Wallet"
   },
   "approvalres_is_required": {
     "message": "approvalRes es requerido"
@@ -420,7 +420,7 @@
     "message": "Error desconocido."
   },
   "cold_wallet": {
-    "message": "Billetera Fría UniSat"
+    "message": "Billetera Fría Pearl"
   },
   "cold_wallet_signed_successfully": {
     "message": "La billetera fría ha firmado exitosamente la transacción. Por favor confirme los detalles de la transacción y haga clic en difundir."
@@ -483,7 +483,7 @@
     "message": "Conectar vía USB"
   },
   "connect_with_unisat_wallet": {
-    "message": "Conectar con UniSat Wallet"
+    "message": "Conectar con Pearl Wallet"
   },
   "connected": {
     "message": "Conectado"
@@ -666,10 +666,10 @@
     "message": "Deshabilitar Atomicals"
   },
   "disclaimStr": {
-    "message": "Ten en cuenta que estás a punto de comprar Bitcoin a través de una plataforma de terceros. Los servicios de pago con tarjeta de crédito son proporcionados por nuestros socios. UniSat Wallet actúa únicamente como plataforma intermediaria y no asume ninguna responsabilidad por posibles pérdidas o daños que puedan surgir del uso del servicio de pago con tarjeta de crédito."
+    "message": "Ten en cuenta que estás a punto de comprar Bitcoin a través de una plataforma de terceros. Los servicios de pago con tarjeta de crédito son proporcionados por nuestros socios. Pearl Wallet actúa únicamente como plataforma intermediaria y no asume ninguna responsabilidad por posibles pérdidas o daños que puedan surgir del uso del servicio de pago con tarjeta de crédito."
   },
   "disclaimStrFb": {
-    "message": "Por favor, tenga en cuenta que está a punto de comprar FB a través de una plataforma de terceros. Los servicios de pago con tarjeta de crédito son proporcionados por nuestros socios. UniSat Wallet actúa únicamente como plataforma intermedia y no asume responsabilidad por cualquier pérdida o daño potencial que pueda surgir del uso del servicio de pago con tarjeta de crédito."
+    "message": "Por favor, tenga en cuenta que está a punto de comprar FB a través de una plataforma de terceros. Los servicios de pago con tarjeta de crédito son proporcionados por nuestros socios. Pearl Wallet actúa únicamente como plataforma intermedia y no asume responsabilidad por cualquier pérdida o daño potencial que pueda surgir del uso del servicio de pago con tarjeta de crédito."
   },
   "disclaimer": {
     "message": "Descargo de Responsabilidad"
@@ -789,19 +789,19 @@
     "message": "Feedback"
   },
   "feerate_avg_desc": {
-    "message": "aproximadamente 30 minutos"
+    "message": "aproximadamente 9 minutos"
   },
   "feerate_avg_desc_fb": {
     "message": "aproximadamente 1.5 minutos"
   },
   "feerate_fast_desc": {
-    "message": "aproximadamente 10 minutos"
+    "message": "aproximadamente 3 minutos"
   },
   "feerate_fast_desc_fb": {
     "message": "aproximadamente 30 segundos"
   },
   "feerate_slow_desc": {
-    "message": "aproximadamente 1 hora"
+    "message": "aproximadamente 19 minutos"
   },
   "feerate_slow_desc_fb": {
     "message": "aproximadamente 3 minutos"
@@ -1221,7 +1221,7 @@
     "message": "¿Te gusta nuestra billetera? ¡Nos encantaría tu calificación!"
   },
   "linked_to_unisat_cold_wallet": {
-    "message": "Vinculado a UniSat Cold Wallet"
+    "message": "Vinculado a Pearl Cold Wallet"
   },
   "load_failed": {
     "message": "Error de Carga"
@@ -1839,7 +1839,7 @@
     "message": "Rechazar Todo"
   },
   "reject_blocked_by_unisat_wallet": {
-    "message": "Rechazar (bloqueado por UniSat Wallet)"
+    "message": "Rechazar (bloqueado por Pearl Wallet)"
   },
   "remember_my_choice": {
     "message": "Recordar mi elección"
@@ -2076,7 +2076,7 @@
     "message": "Firmar todas"
   },
   "sign_all_transactions_at_once": {
-    "message": "Tienes la opción de firmar todas las transacciones a la vez, pero ten en cuenta que UniSat Wallet no verificará cada transacción individualmente. Te recomendamos usarlo solo en sitios web de confianza y familiares para minimizar el riesgo de pérdidas potenciales."
+    "message": "Tienes la opción de firmar todas las transacciones a la vez, pero ten en cuenta que Pearl Wallet no verificará cada transacción individualmente. Te recomendamos usarlo solo en sitios web de confianza y familiares para minimizar el riesgo de pérdidas potenciales."
   },
   "sign_and_pay": {
     "message": "Firmar y Pagar"
@@ -2346,7 +2346,7 @@
     "message": "Este token solo admite hasta"
   },
   "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "Este sitio web ha sido identificado como malicioso por UniSat y puede:"
+    "message": "Este sitio web ha sido identificado como malicioso por Pearl y puede:"
   },
   "ticker": {
     "message": "ticker"
@@ -2499,7 +2499,7 @@
     "message": "No disponible"
   },
   "unavailable_tooltip": {
-    "message": "Si tu saldo muestra como no disponible, es posible que tus UTXOs estén bloqueados debido a contener inscripciones, runas, activos brc-20 o no confirmados. En la mayoría de los casos, puedes usar nuestra herramienta de gestión de UTXOs para desbloquear estos UTXOs y hacerlos gastables de nuevo."
+    "message": "Si tu saldo muestra como no disponible, es posible que tus UTXOs estén bloqueados debido a contener inscripciones, runas, activos brc-20 o no confirmados."
   },
   "unconfirmed": {
     "message": "no confirmado"
@@ -2520,7 +2520,7 @@
     "message": "Entiendo que puedo perder todos mis fondos y NFTs si habilito las solicitudes signData."
   },
   "unisat": {
-    "message": "UNISAT"
+    "message": "PEARL"
   },
   "uniscan_active_addresses_24h": {
     "message": "Direcciones Activas (24h)"
@@ -2592,7 +2592,7 @@
     "message": "Ver en Explorador OKX"
   },
   "view_on_unisat_explorer": {
-    "message": "Ver en Explorador UniSat"
+    "message": "Ver en Explorador Pearl"
   },
   "view_on_uniscan": {
     "message": "Ver en UniScan"
@@ -2664,7 +2664,7 @@
     "message": "La usarás para desbloquear tu billetera"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "Tu acceso a esta página ha sido restringido por UniSat Wallet ya que podría ser inseguro."
+    "message": "Tu acceso a esta página ha sido restringido por Pearl Wallet ya que podría ser inseguro."
   },
   "your_balance_have_to_be_merged": {
     "message": "Tu saldo de "

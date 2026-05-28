@@ -40,10 +40,11 @@ export function createProviderProxy(provider: any, requestMethodKey: symbol): an
 }
 
 export function injectProviderToWindow(provider: any): void {
+  defineUnwritablePropertyIfPossible(window, 'pearl', provider);
+  // Keep the legacy `unisat` namespace so existing Bitcoin dApps work unchanged.
   defineUnwritablePropertyIfPossible(window, 'unisat', provider);
-
-  // Many wallets occupy the window.unisat namespace, so we need to use a different namespace to avoid conflicts.
   defineUnwritablePropertyIfPossible(window, 'unisat_wallet', provider);
 
+  window.dispatchEvent(new Event('pearl#initialized'));
   window.dispatchEvent(new Event('unisat#initialized'));
 }

@@ -103,11 +103,6 @@ export function useTxCreateScreenLogic() {
     let tipText = ''
     tipText += t('unavailable_tooltip')
 
-    if (walletConfig.disableUtxoTools) {
-      tipText += t('future_versions_will_support_spending_these_assets')
-    } else {
-      tipText += t('you_can_unlock_these_assets_by_using_the_utxos_tools')
-    }
     return tipText
   }, [chain.enum])
 

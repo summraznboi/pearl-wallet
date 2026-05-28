@@ -1,5 +1,5 @@
 /**
- * BRC20-related API methods - Fully compatible with openapi.ts
+ * BRC20 service — Pearl stub. BRC-20 is not supported.
  */
 
 import type { BaseHttpClient } from '../client/http-client'
@@ -13,244 +13,103 @@ import type {
   UserToSignInput,
 } from '../types'
 
-export class BRC20Service {
-  constructor(private readonly httpClient: BaseHttpClient) {}
+const UNSUPPORTED = (): never => {
+  throw new Error('BRC-20 is not supported on Pearl.')
+}
 
-  private resolveTicker(ticker: string, tickerHex?: string): string {
-    if (!tickerHex) {
-      return ticker
-    }
-    if (!/^[0-9a-fA-F]+$/.test(tickerHex) || tickerHex.length % 2 !== 0) {
-      return ticker
-    }
-    return Buffer.from(tickerHex, 'hex').toString('utf-8')
+export class BRC20Service {
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  // ========================================
-  // BRC20 token list and balance
-  // ========================================
-
-  /**
-   * Get address BRC20 token list
-   */
-  async getBRC20List({
-    address,
-    cursor,
-    size,
-  }: {
+  async getBRC20List(_params: {
     address: string
     cursor: number
     size: number
   }): Promise<{ list: TokenBalance[]; total: number }> {
-    return this.httpClient.get('/v5/brc20/list', {
-      query: { address, cursor, size },
-    })
+    return { list: [], total: 0 }
   }
 
-  /**
-   * Get address specific token summary
-   */
-  async getAddressTokenSummary({
-    address,
-    ticker,
-    tickerHex,
-  }: {
+  async getAddressTokenSummary(_params: {
     address: string
     ticker: string
     tickerHex?: string
   }): Promise<AddressTokenSummary> {
-    const originTicker = this.resolveTicker(ticker, tickerHex)
-    const response: AddressTokenSummary = await this.httpClient.get('/v5/brc20/token-summary', {
-      query: {
-        address,
-        ticker: originTicker,
-      },
-    })
-    if (response && response.tokenBalance && !response.tokenBalance.tickerHex) {
-      response.tokenBalance.tickerHex = Buffer.from(response.tokenBalance.ticker, 'utf-8').toString(
-        'hex'
-      )
-    }
-    return response
+    return {} as AddressTokenSummary
   }
 
-  // ========================================
-  // BRC20 token history
-  // ========================================
-
-  /**
-   * Get address token history list
-   */
-  async getAddressTokenHistoryList({
-    address,
-    ticker,
-    tickerHex,
-    cursor,
-    size,
-  }: {
+  async getAddressTokenHistoryList(_params: {
     address: string
     ticker: string
     tickerHex?: string
     cursor: number
     size: number
   }): Promise<{ list: TokenTransfer[]; total: number }> {
-    const originTicker = this.resolveTicker(ticker, tickerHex)
-    return this.httpClient.get('/v5/address/brc20-history', {
-      query: {
-        address,
-        ticker: originTicker,
-        cursor,
-        size,
-      },
-    })
+    return { list: [], total: 0 }
   }
 
-  /**
-   * Get BRC20 recent history
-   */
-  async getBRC20RecentHistory(address: string, ticker: string): Promise<BRC20HistoryItem[]> {
-    return this.httpClient.get('/v5/brc20/recent-history', {
-      query: { address, ticker },
-    })
+  async getBRC20RecentHistory(_address: string, _ticker: string): Promise<BRC20HistoryItem[]> {
+    return []
   }
 
-  // ========================================
-  // BRC20 price related
-  // ========================================
-
-  /**
-   * Get token price
-   */
-  async getTickPrice(ticker: string): Promise<TickPriceItem> {
-    return this.httpClient.get('/v5/tick/price', {
-      query: { tick: ticker },
-    })
+  async getTickPrice(_ticker: string): Promise<TickPriceItem> {
+    return { curPrice: 0, changePercent: 0 }
   }
 
-  // ========================================
-  // BRC20 transfer related
-  // ========================================
-
-  /**
-   * Inscribe BRC20 transfer
-   */
   async inscribeBRC20Transfer(
-    address: string,
-    tick: string,
-    amount: string,
-    feeRate: number,
-    outputValue?: number
+    _address: string,
+    _tick: string,
+    _amount: string,
+    _feeRate: number,
+    _outputValue?: number
   ): Promise<InscribeOrder> {
-    return this.httpClient.post('/v5/brc20/inscribe-transfer', {
-      address,
-      tick,
-      amount,
-      feeRate,
-      outputValue,
-    })
+    return UNSUPPORTED()
   }
 
-  /**
-   * Get inscription result
-   */
-  async getInscribeResult(orderId: string): Promise<TokenTransfer> {
-    return this.httpClient.get('/v5/brc20/order-result', {
-      query: { orderId },
-    })
+  async getInscribeResult(_orderId: string): Promise<TokenTransfer> {
+    return UNSUPPORTED()
   }
 
-  async getTokenTransferableList({
-    address,
-    ticker,
-    tickerHex,
-    cursor,
-    size,
-  }: {
+  async getTokenTransferableList(_params: {
     address: string
     ticker: string
     tickerHex?: string
     cursor: number
     size: number
   }): Promise<{ list: TokenTransfer[]; total: number }> {
-    const originTicker = this.resolveTicker(ticker, tickerHex)
-    return this.httpClient.get('/v5/brc20/transferable-list', {
-      query: {
-        address,
-        ticker: originTicker,
-        cursor,
-        size,
-      },
-    })
+    return { list: [], total: 0 }
   }
-  // ========================================
-  // Single step transfer related
-  // ========================================
 
-  /**
-   * Single step transfer BRC20 - Step 1
-   */
-  async singleStepTransferBRC20Step1({
-    userAddress,
-    userPubkey,
-    receiver,
-    ticker,
-    amount,
-    feeRate,
-  }: {
+  async singleStepTransferBRC20Step1(_params: {
     userAddress: string
     userPubkey: string
     receiver: string
     ticker: string
     amount: string
     feeRate: number
-  }): Promise<{
-    orderId: string
-    psbtHex: string
-    toSignInputs: UserToSignInput[]
-  }> {
-    return this.httpClient.post('/v5/brc20/single-step-transfer/request-commit', {
-      userAddress,
-      userPubkey,
-      receiver,
-      ticker,
-      amount,
-      feeRate,
-    })
+  }): Promise<{ orderId: string; psbtHex: string; toSignInputs: UserToSignInput[] }> {
+    return UNSUPPORTED()
   }
 
-  async singleStepTransferBRC20Step2({
-    orderId,
-    psbt,
-  }: {
+  async singleStepTransferBRC20Step2(_params: {
     orderId: string
     psbt: string
-  }): Promise<{
-    psbtHex: string
-    toSignInputs: UserToSignInput[]
-  }> {
-    return this.httpClient.post('/v5/brc20/single-step-transfer/sign-commit', {
-      orderId,
-      psbt,
-    })
-  }
-  /**
-   * Single step transfer BRC20 - Step 3
-   */
-  async singleStepTransferBRC20Step3(params: { orderId: string; psbt: string }): Promise<{
-    txid: string
-  }> {
-    return this.httpClient.post('/v5/brc20/single-step-transfer/sign-reveal', params)
+  }): Promise<{ psbtHex: string; toSignInputs: UserToSignInput[] }> {
+    return UNSUPPORTED()
   }
 
-  async getBRC20ProgList({
-    address,
-    cursor,
-    size,
-  }: {
+  async singleStepTransferBRC20Step3(_params: {
+    orderId: string
+    psbt: string
+  }): Promise<{ txid: string }> {
+    return UNSUPPORTED()
+  }
+
+  async getBRC20ProgList(_params: {
     address: string
     cursor: number
     size: number
   }): Promise<{ list: TokenBalance[]; total: number }> {
-    return this.httpClient.get('/v5/brc20-prog/list', { query: { address, cursor, size, type: 5 } })
+    return { list: [], total: 0 }
   }
 }

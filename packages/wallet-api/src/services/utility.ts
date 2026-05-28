@@ -1,114 +1,58 @@
 /**
- * Utility and tool related API methods
+ * Utility service — Pearl stub.
+ *
+ * Pearl Blockbook does not expose the UniSat utility endpoints, so all
+ * methods return empty / safe defaults. Phishing checks always pass.
  */
 
 import type { BaseHttpClient } from '../client/http-client'
 import { Announcement, AppExtra, AppSummary } from '../types'
 
 export class UtilityService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
-
-  // ========================================
-  // Website and domain related
-  // ========================================
-
-  /**
-   * Check website
-   */
-  async checkWebsite(website: string): Promise<{ isScammer: boolean; warning: string }> {
-    return this.httpClient.post('/v5/default/check-website', { website })
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
   }
 
-  // ========================================
-  // Purchase related
-  // ========================================
-
-  /**
-   * Get buy coin channel list
-   */
-  async getBuyCoinChannelList(coin: 'BTC' | 'FB'): Promise<{ channel: string }[]> {
-    if (coin === 'BTC') {
-      return this.httpClient.get('/v5/buy-btc/channel-list')
-    } else {
-      return this.httpClient.get('/v5/buy-fb/channel-list')
-    }
+  async checkWebsite(_website: string): Promise<{ isScammer: boolean; warning: string }> {
+    return { isScammer: false, warning: '' }
   }
 
-  /**
-   * Create buy coin payment URL
-   */
+  async getBuyCoinChannelList(_coin: 'BTC' | 'FB'): Promise<{ channel: string }[]> {
+    return []
+  }
+
   async createBuyCoinPaymentUrl(
-    coin: 'BTC' | 'FB',
-    address: string,
-    channel: string
+    _coin: 'BTC' | 'FB',
+    _address: string,
+    _channel: string
   ): Promise<string> {
-    if (coin === 'BTC') {
-      return this.httpClient.post('/v5/buy-btc/create', { address, channel })
-    } else {
-      return this.httpClient.post('/v5/buy-fb/create', { address, channel })
-    }
+    return ''
   }
 
-  /**
-   * Get application list
-   */
-  async getAppList(): Promise<
-    {
-      tab: string
-      items: any[]
-    }[]
-  > {
-    return this.httpClient.get('/v5/discovery/app-list')
+  async getAppList(): Promise<{ tab: string; items: any[] }[]> {
+    return []
   }
 
-  /**
-   * Get extra information for an application
-   */
-  async getAppExtra(id: string | number, locale?: string): Promise<AppExtra> {
-    return this.httpClient.get('/v5/discovery/app-extra', {
-      query: {
-        id,
-        ...(locale ? { locale } : {}),
-      },
-    })
+  async getAppExtra(_id: string | number, _locale?: string): Promise<AppExtra> {
+    return {} as AppExtra
   }
 
-  /**
-   * Get banner list
-   */
-  async getBannerList(): Promise<
-    {
-      id: string
-      img: string
-      link: string
-    }[]
-  > {
-    return this.httpClient.get('/v5/discovery/banner-list')
+  async getBannerList(): Promise<{ id: string; img: string; link: string }[]> {
+    return []
   }
 
-  /**
-   * Get application summary
-   */
   async getAppSummary(): Promise<AppSummary> {
-    return this.httpClient.get('/v5/default/app-summary-v2')
+    return { apps: [] } as AppSummary
   }
 
-  /**
-   * Get block activity information
-   */
   async getBlockActiveInfo(): Promise<{ allTransactions: number; allAddrs: number }> {
-    return this.httpClient.get('/v5/default/block-active-info')
+    return { allTransactions: 0, allAddrs: 0 }
   }
 
   async getAnnouncements(
-    cursor: number,
-    size: number
+    _cursor: number,
+    _size: number
   ): Promise<{ hasMore: boolean; list: Announcement[] }> {
-    return this.httpClient.get('/v5/announcement/list', {
-      query: {
-        cursor,
-        size,
-      },
-    })
+    return { hasMore: false, list: [] }
   }
 }

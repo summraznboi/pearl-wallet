@@ -1,0 +1,9 @@
+<!-- Monochrome Pearl tab icon. P-with-pearl-bead glyph extracted from the
+     Pearl Research wordmark (pearlresearch.ai/pearl.svg). ViewBox crops to the
+     P's natural bounding box (29,30)-(321,280), padded vertically to square so
+     the glyph centers when rendered at any size. Fill #AAAAAA matches the
+     other tab icons; the Icon component recolors via CSS for active state. -->
+<svg width="24" height="24" viewBox="29 9 292 292" xmlns="http://www.w3.org/2000/svg">
+  <path d="M242 280H127V262H166V30H225C286 30 321 68 321 113C321 158 286 188 233 192L219 181C265 173 281 151 281 113C281 76 261 48 220 48H205V262H242V280Z" fill="#AAAAAA"/>
+  <path d="M130 30L130 195L126 195C64 195 29 158 29 113C29 68 65 30 126 30L130 30Z" fill="#AAAAAA"/>
+</svg>

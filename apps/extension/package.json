@@ -11,13 +11,15 @@
     "url": "https://github.com/unisat-wallet/extension.git"
   },
   "scripts": {
-    "clean": "mkdir -p dist && rm -rf dist/* && cp -r build/_raw/* dist",
-    "build:chrome:dev": "webpack --progress --env browser=chrome manifest=mv2 config=dev channel=github version=1.7.16",
+    "clean": "rm -rf dist && mkdir -p dist",
+    "prepare:chrome:mv2": "rm -rf dist/chrome && node scripts/merge-manifest.js --browser=chrome --manifest=mv2",
+    "prepare:chrome:mv3": "rm -rf dist/chrome && node scripts/merge-manifest.js --browser=chrome --manifest=mv3",
+    "build:chrome:dev": "pnpm prepare:chrome:mv2 && webpack --progress --env browser=chrome manifest=mv2 config=dev channel=github version=1.7.16",
     "build:chrome": "gulp build --env=pro --browser=chrome --manifest=mv2 --channel=github",
     "build:firefox": "gulp build --env=pro --browser=firefox --manifest=mv2 --channel=github",
     "build:brave": "gulp build --env=pro --browser=brave --manifest=mv2 --channel=github",
     "build:edge": "gulp build --env=pro --browser=edge --manifest=mv2 --channel=github",
-    "build:chrome:mv3:dev": "webpack --progress --env browser=chrome manifest=mv3 config=dev channel=github version=1.7.16",
+    "build:chrome:mv3:dev": "pnpm prepare:chrome:mv3 && webpack --progress --env browser=chrome manifest=mv3 config=dev channel=github version=1.7.16",
     "build:chrome:mv3": "gulp build --env=pro --browser=chrome --manifest=mv3 --channel=store",
     "package:test": "node ./scripts/package-test.js",
     "lint": "eslint src --fix --ext .js,.ts,.tsx,.json  && npm run format",

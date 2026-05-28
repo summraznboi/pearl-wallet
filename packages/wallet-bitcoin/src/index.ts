@@ -5,7 +5,7 @@ export type { ECPairInterface } from './bitcoin-core'
 // Address utilities
 export * from './address'
 // Network utilities
-export { toPsbtNetwork, toNetworkType } from './network'
+export { toPsbtNetwork, toNetworkType, pearlNetwork } from './network'
 
 // Utilities
 export { toXOnly, tweakSigner, validator, schnorrValidator } from './utils'

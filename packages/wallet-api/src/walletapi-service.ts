@@ -25,7 +25,10 @@ export class WalletApiService {
   private storageKey: string = 'openapi'
 
   constructor() {
-    this.currentEndpoint = 'https://wallet-api-fractal.unisat.space'
+    // Pearl Blockbook. Note: this service still ships UniSat-shaped routes
+    // (/v5/...) — the bitcoin service methods need to be re-implemented against
+    // Blockbook's /address /tx /block endpoints before live data fetching works.
+    this.currentEndpoint = 'https://blockbook.pearlresearch.ai/api'
   }
 
   init = async (config: WalletServiceConfig) => {
@@ -91,7 +94,7 @@ export class WalletApiService {
 
   updateHeaders = () => {
     const headers: Record<string, string> = {
-      'x-client': 'UniSat Wallet',
+      'x-client': 'Pearl Wallet',
       'x-version': PlatformEnv.VERSION,
       'x-channel': PlatformEnv.CHANNEL,
       'x-udid': PlatformEnv.UDID,

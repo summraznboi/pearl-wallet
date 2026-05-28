@@ -1,37 +1,38 @@
 /**
- * Market and pricing related API methods
+ * Market service — Pearl stub.
+ *
+ * Pearl Blockbook does not expose pricing endpoints, so all prices are 0.
  */
 
-import type { BaseHttpClient, HttpClient } from '../client/http-client'
-import type { CoinPrice, FeeSummary, TickPriceItem } from '../types'
+import type { BaseHttpClient } from '../client/http-client'
+import type { CoinPrice, TickPriceItem } from '../types'
 
 export class MarketService {
-  constructor(private readonly httpClient: BaseHttpClient) {}
+  constructor(private readonly httpClient: BaseHttpClient) {
+    void this.httpClient
+  }
 
-  // ========================================
-  // Price related
-  // ========================================
-
-  /**
-   * Get coin price
-   */
   async getCoinPrice(): Promise<CoinPrice> {
-    return this.httpClient.get('/v5/default/price')
+    return { btc: 0, fb: 0 }
   }
 
   async getBrc20sPrice(ticks: string[]): Promise<TickPriceItem> {
-    return this.httpClient.post('/v5/market/brc20/price', { ticks })
+    void ticks
+    return { curPrice: 0, changePercent: 0 }
   }
 
   async getRunesPrice(ticks: string[]): Promise<TickPriceItem> {
-    return this.httpClient.post('/v5/market/runes/price', { ticks })
+    void ticks
+    return { curPrice: 0, changePercent: 0 }
   }
 
   async getCAT20sPrice(ticks: string[]): Promise<TickPriceItem> {
-    return this.httpClient.post('/v5/market/cat20/price', { ticks })
+    void ticks
+    return { curPrice: 0, changePercent: 0 }
   }
 
   async getAlkanesPrice(ticks: string[]): Promise<TickPriceItem> {
-    return this.httpClient.post('/v5/market/alkanes/price', { ticks })
+    void ticks
+    return { curPrice: 0, changePercent: 0 }
   }
 }
