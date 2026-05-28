@@ -1,24 +1,8 @@
-# UniSat Wallet
+# Pearl Wallet
 
-UniSat Wallet is an open-source Bitcoin wallet built for Ordinals, brc-20, and the Bitcoin native ecosystem.
-
-You can find the latest version of UniSat Wallet on our official website.  
-For user guides, FAQs, and general documentation, please visit our documentation site.
-
-If you encounter any wallet-related issues or need support, please submit a support ticket via our Discord.
+Pearl Wallet is an open-source Pearl wallet built for the Pearl native ecosystem.
 
 For announcements and the latest updates, follow us on X.
-
-For developers building on Bitcoin and Ordinals, see our developer documentation.
-
----
-
-### Official Links
-
-- 🌐 Website: https://unisat.io
-- 📖 Documentation: https://docs.unisat.io
-- 💬 Support (Discord): https://discord.com/invite/EMskB2sMz8
-- 🐦 X / Twitter: https://x.com/unisat_wallet
 
 ---
 
@@ -157,17 +141,6 @@ The check is triggered only when pushed commits include changes under `apps/exte
 - **Shared packages first**, platform code as thin layers
 - **Strict dependency boundaries** between apps and packages
 - **Security-oriented design**, especially around key management and permissions
-
----
-
-## Repository Status
-
-This repository is the **only active development repository** for UniSat Wallet.
-
-Previous standalone repositories have been deprecated:
-
-- `unisat-wallet/extension`
-- `unisat-wallet/wallet-sdk`
 
 ---
 
