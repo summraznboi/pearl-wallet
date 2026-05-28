@@ -1,6 +1,6 @@
 # Address Types
 
-UniSat Wallet supports 4 Bitcoin address formats and allows switching between them in the settings.
+Pearl Wallet supports 4 Bitcoin address formats and allows switching between them in the settings.
 
 | Type          | Script Type | Derivation   | BIP                                                                        |
 | ------------- | ----------- | ------------ | -------------------------------------------------------------------------- |

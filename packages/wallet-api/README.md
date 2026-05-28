@@ -1,10 +1,10 @@
 # @unisat/wallet-api
 
-Unified API client for UniSat wallet services, providing a comprehensive TypeScript interface for interacting with the UniSat API.
+Unified API client for Pearl wallet services, providing a comprehensive TypeScript interface for interacting with the Pearl API.
 
 ## Features
 
-- 🔧 **Unified Client**: Single package for all UniSat API services
+- 🔧 **Unified Client**: Single package for all Pearl API services
 - 📦 **Modular Design**: Organized services for Bitcoin, BRC20, Runes, Inscriptions, and Config
 - 🛡️ **Type Safe**: Full TypeScript support with comprehensive type definitions
 - 🔄 **Retry Logic**: Built-in retry mechanism with exponential backoff
@@ -199,4 +199,4 @@ The package includes comprehensive unit tests and integration tests to ensure re
 
 ## License
 
-This package is part of the UniSat wallet project and follows the same licensing terms.
+This package is part of the Pearl wallet project and follows the same licensing terms.

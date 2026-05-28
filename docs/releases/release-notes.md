@@ -1,4 +1,4 @@
-# UniSat Wallet Release Notes
+# Pearl Wallet Release Notes
 
 ## v1.7.16
 

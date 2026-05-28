@@ -1,6 +1,6 @@
 # @unisat/wallet-bitcoin
 
-Bitcoin core utilities for UniSat wallet ecosystem.
+Bitcoin core utilities for Pearl wallet ecosystem.
 
 ## Features
 

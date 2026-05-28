@@ -1,6 +1,6 @@
 # @unisat/wallet-state
 
-Redux state management for UniSat wallet, designed to be shared between browser extension and mobile applications.
+Redux state management for Pearl wallet, designed to be shared between browser extension and mobile applications.
 
 ## Features
 

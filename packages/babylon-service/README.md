@@ -1,6 +1,6 @@
 # @unisat/babylon-service
 
-Babylon Bitcoin staking service for UniSat Wallet - handles delegation management and API interactions.
+Babylon Bitcoin staking service for Pearl Wallet - handles delegation management and API interactions.
 
 ## Features
 

@@ -1,4 +1,4 @@
-# UniSat Mobile Wallet Integration
+# Pearl Mobile Wallet Integration
 
 If you want to authorize login through our wallet application, you need to use deeplink for interaction. Here are the description of the deeplink’s format and parameters respectively:
 

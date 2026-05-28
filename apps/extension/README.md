@@ -1,9 +1,6 @@
-# UniSat Wallet
+# Pearl Wallet
 
-UniSat Wallet - the first open-source browser extension wallet for Ordinals on bitcoin.
-
-- Website: https://unisat.io/
-- Twitter: https://twitter.com/unisat_wallet
+Pearl Wallet - the first open-source browser extension wallet for Pearl.
 
 ## How to build
 
@@ -15,4 +12,4 @@ UniSat Wallet - the first open-source browser extension wallet for Ordinals on b
 
 ## Special Thanks
 
-Thanks to the MetaMask team for their contributions to the browser extension wallet community, UniSat Wallet relies heavily on their contributions.
+Thanks to the MetaMask team for their contributions to the browser extension wallet community, Pearl Wallet relies heavily on their contributions.

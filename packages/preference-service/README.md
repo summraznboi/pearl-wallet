@@ -1,6 +1,6 @@
 # @unisat/preference-service
 
-Cross-platform preference management service for UniSat wallet applications.
+Cross-platform preference management service for Pearl wallet applications.
 
 ## Features
 
@@ -190,7 +190,7 @@ preferenceService.setCurrentAccount({
   address: 'bc1q...',
   pubkey: '02...',
   type: 'P2WPKH',
-  brandName: 'UniSat'
+  brandName: 'Pearl'
 });
 
 // Account aliases

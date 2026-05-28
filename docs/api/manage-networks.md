@@ -1,6 +1,6 @@
 # Manage Networks
 
-UniSat Wallet currently supports the following network types, which can be obtained through unisat.getChain, and switched through the `unisat.switchChain` method.
+Pearl Wallet currently supports the following network types, which can be obtained through unisat.getChain, and switched through the `unisat.switchChain` method.
 
 | name                    | enum                    | uni  | network |
 | ----------------------- | ----------------------- | ---- | ------- |

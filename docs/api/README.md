@@ -1,6 +1,6 @@
-# UniSat Wallet API — dApp Integration Guide
+# Pearl Wallet API — dApp Integration Guide
 
-The `window.unisat` object is injected by the UniSat Wallet extension into every web page. dApps use this API to interact with the user's Bitcoin wallet.
+The `window.unisat` object is injected by the Pearl Wallet extension into every web page. dApps use this API to interact with the user's Bitcoin wallet.
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ The `window.unisat` object is injected by the UniSat Wallet extension into every
 
 | Topic | Description |
 |---|---|
-| [Browser Detection](./browser-detection.md) | Check if UniSat is installed |
+| [Browser Detection](./browser-detection.md) | Check if Pearl is installed |
 | [Connect Extension](./connect-extension.md) | Request wallet connection and accounts |
 | [Access Accounts](./access-accounts.md) | Get current account, address, public key |
 | [Address Types](./address-types.md) | Supported address formats |

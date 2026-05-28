@@ -94,7 +94,7 @@ The `accountsChanged` will be emitted whenever the user's exposed account addres
 unisat.getVersion()
 ```
 
-Get the version of the UniSat Wallet extension.
+Get the version of the Pearl Wallet extension.
 
 **Parameters**
 

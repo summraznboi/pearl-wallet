@@ -1,10 +1,10 @@
-# Connect to the UniSat Wallet
+# Connect to the Pearl Wallet
 
-"Connecting" or "logging in" to UniSat Wallet effectively means "to access the user's Bitcoin account(s)".
+"Connecting" or "logging in" to Pearl Wallet effectively means "to access the user's Bitcoin account(s)".
 
 You should only initiate a connection request in response to direct user action, such as clicking a button. You should always disable the "connect" button while the connection request is pending. You should never initiate a connection request on page load.
 
-We recommend that you provide a button to allow the user to connect UniSat Wallet to your dapp. Clicking this button should call the following method:
+We recommend that you provide a button to allow the user to connect Pearl Wallet to your dapp. Clicking this button should call the following method:
 
 ## Methods
 

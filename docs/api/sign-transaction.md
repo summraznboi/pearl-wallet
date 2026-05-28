@@ -1,6 +1,6 @@
 # Sign and broadcast Transaction
 
-UniSat Wallet provides functionality for signing individual PSBTs, batch signing multiple PSBTs, and broadcasting transactions.
+Pearl Wallet provides functionality for signing individual PSBTs, batch signing multiple PSBTs, and broadcasting transactions.
 
 ## Method
 

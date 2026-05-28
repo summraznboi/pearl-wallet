@@ -1,10 +1,10 @@
 # @unisat/wallet-shared
 
-Shared type definitions, constants, error codes, and utilities for the UniSat wallet ecosystem.
+Shared type definitions, constants, error codes, and utilities for the Pearl wallet ecosystem.
 
 ## Overview
 
-This package provides common types, constants, error handling, and utility functions used across UniSat wallet products. It is designed to ensure consistency and reduce duplication in wallet-related services and applications.
+This package provides common types, constants, error handling, and utility functions used across Pearl wallet products. It is designed to ensure consistency and reduce duplication in wallet-related services and applications.
 
 ## Features
 

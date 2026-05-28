@@ -16,8 +16,8 @@ Runnable end-user applications:
 
 ```
 apps/
-├── extension        # UniSat Browser Extension
-└── mobile           # UniSat Mobile Wallet (iOS & Android) (Comming Soon)
+├── extension        # Pearl Browser Extension
+└── mobile           # Pearl Mobile Wallet (iOS & Android) (Comming Soon)
 ```
 
 ### Packages

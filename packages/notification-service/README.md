@@ -1,6 +1,6 @@
 # @unisat/notification-service
 
-Cross-platform notification management service for UniSat Wallet. Handles fetching, storing, reading, and deleting in-app notifications with local persistence and automatic cleanup.
+Cross-platform notification management service for Pearl Wallet. Handles fetching, storing, reading, and deleting in-app notifications with local persistence and automatic cleanup.
 
 ## Installation
 

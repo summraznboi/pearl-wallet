@@ -1,4 +1,4 @@
-# UniSat Wallet — Documentation
+# Pearl Wallet — Documentation
 
 ## Sections
 
